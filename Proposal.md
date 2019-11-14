@@ -1,14 +1,12 @@
 # Major Project Proposal
 
 ### Description
-I'm going to build a game maybe a multiplayer FPS, in unity.
+I'm going to build a retroarcade gaming gaming machine.
  
 ### Need to have list
-  - Movement mechanics
-  - Shooting + damage + ammo
-  - Must look nice
-  - Have an offline mode w/bots
+  - At least 5 games
+  - Customizatoin
   
 ### Nice to have list
-  - Must look better than "nice"
-  - Have actual character customization (colors and stuff)
+  - >7 games 
+  - 
