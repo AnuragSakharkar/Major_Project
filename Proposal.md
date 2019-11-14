@@ -1,10 +1,14 @@
 # Major Project Proposal
 
 ### Description
- - Explain what i'm going to build
+I'm going to build a game maybe a multiplayer FPS, in unity.
  
 ### Need to have list
-  - Minimum requirements
+  - Movement mechanics
+  - Shooting + damage + ammo
+  - Must look nice
+  - Have an offline mode w/bots
   
 ### Nice to have list
-  - More stuff on top
+  - Must look better than "nice"
+  - Have actual character customization (colors and stuff)
