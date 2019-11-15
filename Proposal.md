@@ -1,7 +1,7 @@
 # Major Project Proposal
 
 ### Description
-I'm going to build a retro arcade gaming app/program.
+I'm going to build a retro arcade gaming app/program. 
  
 ### Need to have list
   - At least 7 games
@@ -11,6 +11,7 @@ I'm going to build a retro arcade gaming app/program.
   - High scores
   - Built with electron so it's a (downloadable) desktop application
   - Looks good
+  - Old-school style 
   
 ### Nice to have list
   - Looks better than "good"
