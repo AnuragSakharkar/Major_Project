@@ -20,6 +20,5 @@ For my major project, I'm planning to build a retro arcade gaming app/program. T
   - Have touchscreen compatibility?
   - "Cheat mode" where you automatically get all the hax
   - Universal high scores
-  - Hardware integration to bring games out into the real world(maybe via the micro:bit?)
   - Pause/settings/etc. menu
   - A coin slot/credits function thing in the main menu?
