@@ -467,10 +467,10 @@ class Ghost
 
     this.targetX = playerPac.xPos;
     this.targetY = playerPac.yPos;
-    this.bottomDist = 0;
-    this.topDist = 0;
-    this.leftDist = 0;
-    this.rightDist = 0;
+    this.southDist = 0;
+    this.northDist = 0;
+    this.westDist = 0;
+    this.eastDist = 0;
     this.minDirection = Directions.North;
   }
 
@@ -599,17 +599,17 @@ class Ghost
 
 
 
-  // Teleport the ghost if it goes out of the maze
+  // Bounce the ghost if it tries to move out of the maze
 
-  teleport()
+  bounce()
   {
     if (this.xPos === 0 && this.yPos === 9)
     {
-      this.xPos = 14;
+      this.direction = Directions.East;
     }
     else if (this.xPos === 14 && this.yPos === 9)
     {
-      this.xPos = 0;
+      this.direction = Directions.West;
     }
   }
 
@@ -634,20 +634,47 @@ class Ghost
       {
         if (!maze.theGrid[this.yPos + 1][this.xPos])
         {
-          this.bottomDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
+          this.southDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
+          console.log("bottom clear");
         }
+        else
+        {
+          this.southDist = 5318008;
+        }
+
+
         if (!maze.theGrid[this.yPos - 1][this.xPos])
         {
-          this.topDist = dist(this.xPos, this.yPos - 1, this.targetX, this.targetY);
+          this.northDist = dist(this.xPos, this.yPos - 2, this.targetX, this.targetY);
+          console.log("top clear");
         }
+        else
+        {
+          this.northDist = 999999999;
+        }
+
+
         if (!maze.theGrid[this.yPos][this.xPos + 1])
         {
-          this.rightDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
+          this.eastDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
+          console.log("east clear");
         }
+        else
+        {
+          this.eastDist = 999999999;
+        }
+
+
         if (!maze.theGrid[this.yPos][this.xPos - 1])
         {
-          this.leftDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
+          this.westDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
+          console.log("west clear");
         }
+        else
+        {
+          this.westDist = 999999999;
+        }
+
       }
     }
   }
@@ -660,26 +687,37 @@ class Ghost
 
   changeDirection()
   {
-    this.minDirection = min(this.bottomDist, this.topDist, this.leftDist, this.rightDist);
-    if (this.minDirection === this.bottomDist)
+    let directions = [this.southDist, this.northDist, this.westDist, this.eastDist];
+    let lowest = 999999999;
+    let index = -1;
+    for (let i = 0; i < directions.length; i++)
     {
-      this.futureDirection = Directions.South;
-      console.log("South is closest");
+      if (directions[i] < lowest)
+      {
+        index = i;
+        lowest = directions[i];
+      }
     }
-    else if (this.minDirection === this.topDist)
+
+    if (index === 1)
     {
       this.futureDirection = Directions.North;
-      console.log("North is closest");
+      //console.log("North is closest");
     }
-    else if (this.minDirection === this.leftDist)
-    {
-      this.futureDirection = Directions.West;
-      console.log("West is closest");
-    }
-    else if (this.minDirection === this.rightDist)
+    else if (index === 3)
     {
       this.futureDirection = Directions.East;
-      console.log("East is closest");
+      ///console.log("East is closest");
+    }
+    else if (index === 0)
+    {
+      this.futureDirection = Directions.South;
+      ///console.log("South is closest");
+    }
+    else if (index === 2)
+    {
+      this.futureDirection = Directions.West;
+      //console.log("West is closest");
     }
   }
 
@@ -689,14 +727,14 @@ class Ghost
 
   update()
   {
+    this.target();
     this.move();
     this.turn();
-    //this.randomTurn();
-    this.teleport();
-    this.target();
-    this.pathFind();
-    this.changeDirection();
     this.render();
+    this.pathFind();
+    //this.randomTurn();
+    this.bounce();
+    this.changeDirection();
     this.checkCollision();
   }
 
