@@ -153,7 +153,7 @@ class Pacman
     {
       let oldDir = this.direction;
 
-      if (this.futureDirection === Directions.North && oldDir != Directions.North)
+      if (this.futureDirection === Directions.North)
       {
         this.direction = Directions.North;
         if (!this.checkCollision())
@@ -162,7 +162,7 @@ class Pacman
         }
       }
 
-      if (this.futureDirection === Directions.West && oldDir != Directions.West)
+      if (this.futureDirection === Directions.West)
       {
         this.direction = Directions.West;
         if (!this.checkCollision())
@@ -171,7 +171,7 @@ class Pacman
         }
       }
 
-      if (this.futureDirection === Directions.South && oldDir != Directions.South)
+      if (this.futureDirection === Directions.South)
       {
         this.direction = Directions.South;
         if (!this.checkCollision())
@@ -180,7 +180,7 @@ class Pacman
         }
       }
 
-      if (this.futureDirection === Directions.East && oldDir != Directions.East)
+      if (this.futureDirection === Directions.East)
       {
         this.direction = Directions.East;
         if (!this.checkCollision())
@@ -316,7 +316,7 @@ class Grid
       [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,true, true, true, true, true, false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,true, false,false,false,false,false,false,false],
       [false,false,false,true, false,true, false,false,false,true, false,true, false,false,false],
       [false,false,false,false,false,true, false,false,false,true, false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -462,6 +462,9 @@ class Ghost
     this.size = 25;
     this.frontIsClear = true;
     this.tempvar = 0;
+    this.oldDir = Directions.North;
+    this.targetX = playerPac.xPos;
+    this.targetY = playerPac.yPos;
   }
 
 
@@ -516,22 +519,23 @@ class Ghost
 
   // Pick random direction (for now)
 
-  target()
+  randomTurn()
   {
     this.tempVar = floor(random([1], [5]));
-    if (this.tempVar === 1)
+    this.oldDir = this.direction;
+    if (this.tempVar === 1 && this.oldDir != Directions.North && this.oldDir != Directions.South)
     {
       this.futureDirection = Directions.North
     }
-    else if (this.tempVar === 2)
-    {   
+    else if (this.tempVar === 2 && this.oldDir != Directions.South && this.oldDir != Directions.North)
+    {
       this.futureDirection = Directions.South
     }
-    else if (this.tempVar === 3)
+    else if (this.tempVar === 3 && this.oldDir != Directions.East && this.oldDir != Directions.West)
     {
       this.futureDirection = Directions.East
     }
-    else
+    else if (this.oldDir != Directions.West && this.oldDir != Directions.East)
     {
       this.futureDirection = Directions.West
     }
@@ -543,7 +547,7 @@ class Ghost
 
   turn()
   {
-    
+
     if (this.moveCounter == 0)
     {
       let oldDir = this.direction;
@@ -588,6 +592,26 @@ class Ghost
 
 
 
+  // Set the target to be pacman's location
+  target()
+  {
+    this.targetX = playerPac.xPos;
+    this.targetY = playerPac.yPos;
+  }
+
+
+
+  // Find the way to the target tile
+
+  pathFind()
+  {
+    if(maze.junctions[this.xPos][this.yPos])
+    {
+      console.log("AT JUNCTION!")
+    }
+  }
+
+
 
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
@@ -595,11 +619,27 @@ class Ghost
   {
     this.move();
     this.turn();
-    this.target();
+    this.randomTurn();
+    //this.target();
+    //this.pathFind();
     this.render();
     this.checkCollision();
   }
 
+}
+
+
+
+
+// Change the canvas size and reset all the other elements if the window is resized
+
+function windowResized()
+{
+  resizeCanvas(windowWidth, windowHeight);
+
+  scalar = windowHeight/21;
+  rectYOffset = scalar/2;
+  rectXOffset =  (windowWidth/2 - (7.5 * scalar));
 }
 
 
@@ -616,13 +656,10 @@ function setup()
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
 
-  scalar = windowHeight/21;
-  rectYOffset = scalar/2;
-  rectXOffset =  windowWidth/3;
-
-  Blinky = new Ghost();
+  windowResized();
 
   playerPac = new Pacman();
+  Blinky = new Ghost();
   maze = new Grid();
   foods = new Dots();
 
