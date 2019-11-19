@@ -606,10 +606,18 @@ class Ghost
 
   pathFind()
   {
-    if(maze.junctions[this.xPos][this.yPos])
-    {
-      console.log("AT JUNCTION!")
-    }
+    if(!((this.xPos === 0 || this.xPos === 14) && this.yPos === 9))
+      if (maze.junctions[this.yPos][this.xPos])
+      {
+        if (!maze.theGrid[this.yPos + 1][this.xPos])
+          console.log("Bottom Clear")
+        if (!maze.theGrid[this.yPos - 1][this.xPos])
+          console.log("Top Clear")
+        if (!maze.theGrid[this.yPos][this.xPos + 1])
+          console.log("Right Clear")
+        if (!maze.theGrid[this.yPos][this.xPos - 1])
+          console.log("Left Clear")
+      }
   }
 
 
@@ -621,8 +629,8 @@ class Ghost
     this.move();
     this.turn();
     this.randomTurn();
-    //this.target();
-    //this.pathFind();
+    this.target();
+    this.pathFind();
     this.render();
     this.checkCollision();
   }
