@@ -464,8 +464,14 @@ class Ghost
     this.frontIsClear = true;
     this.tempvar = 0;
     this.oldDir = Directions.North;
+
     this.targetX = playerPac.xPos;
     this.targetY = playerPac.yPos;
+    this.bottomDist = 0;
+    this.topDist = 0;
+    this.leftDist = 0;
+    this.rightDist = 0;
+    this.minDirection = Directions.North;
   }
 
 
@@ -623,17 +629,58 @@ class Ghost
   pathFind()
   {
     if(!((this.xPos === 0 || this.xPos === 14) && this.yPos === 9))
+    {
       if (maze.junctions[this.yPos][this.xPos])
       {
         if (!maze.theGrid[this.yPos + 1][this.xPos])
-          console.log("Bottom Clear")
+        {
+          this.bottomDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
+        }
         if (!maze.theGrid[this.yPos - 1][this.xPos])
-          console.log("Top Clear")
+        {
+          this.topDist = dist(this.xPos, this.yPos - 1, this.targetX, this.targetY);
+        }
         if (!maze.theGrid[this.yPos][this.xPos + 1])
-          console.log("Right Clear")
+        {
+          this.rightDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
+        }
         if (!maze.theGrid[this.yPos][this.xPos - 1])
-          console.log("Left Clear")
+        {
+          this.leftDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
+        }
       }
+    }
+  }
+
+
+
+  // Check and change future direction
+  // THIS DOESN'T WORK BECAUSE YOU ARE NOT CHECKING IF THE DIRECTION IS CLEAR - FIX THIS!!!!!!!!! ADD DIRECTIONS FROM
+  // THE pathFind THING TO AN ARRAY IF THEY ARE CLEAR AND THIS WILL WORK
+
+  changeDirection()
+  {
+    this.minDirection = min(this.bottomDist, this.topDist, this.leftDist, this.rightDist);
+    if (this.minDirection === this.bottomDist)
+    {
+      this.futureDirection = Directions.South;
+      console.log("South is closest");
+    }
+    else if (this.minDirection === this.topDist)
+    {
+      this.futureDirection = Directions.North;
+      console.log("North is closest");
+    }
+    else if (this.minDirection === this.leftDist)
+    {
+      this.futureDirection = Directions.West;
+      console.log("West is closest");
+    }
+    else if (this.minDirection === this.rightDist)
+    {
+      this.futureDirection = Directions.East;
+      console.log("East is closest");
+    }
   }
 
 
@@ -644,10 +691,11 @@ class Ghost
   {
     this.move();
     this.turn();
-    this.randomTurn();
+    //this.randomTurn();
     this.teleport();
     this.target();
     this.pathFind();
+    this.changeDirection();
     this.render();
     this.checkCollision();
   }
