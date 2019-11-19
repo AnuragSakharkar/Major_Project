@@ -593,6 +593,22 @@ class Ghost
 
 
 
+  // Teleport the ghost if it goes out of the maze
+
+  teleport()
+  {
+    if (this.xPos === 0 && this.yPos === 9)
+    {
+      this.xPos = 14;
+    }
+    else if (this.xPos === 14 && this.yPos === 9)
+    {
+      this.xPos = 0;
+    }
+  }
+
+
+
   // Set the target to be pacman's location
   target()
   {
@@ -629,6 +645,7 @@ class Ghost
     this.move();
     this.turn();
     this.randomTurn();
+    this.teleport();
     this.target();
     this.pathFind();
     this.render();
