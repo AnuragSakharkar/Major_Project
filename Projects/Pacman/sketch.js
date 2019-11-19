@@ -153,7 +153,7 @@ class Pacman
     {
       let oldDir = this.direction;
 
-      if (this.futureDirection === Directions.North)
+      if (this.futureDirection === Directions.North && oldDir != Directions.North)
       {
         this.direction = Directions.North;
         if (!this.checkCollision())
@@ -162,7 +162,7 @@ class Pacman
         }
       }
 
-      if (this.futureDirection === Directions.West)
+      if (this.futureDirection === Directions.West && oldDir != Directions.West)
       {
         this.direction = Directions.West;
         if (!this.checkCollision())
@@ -171,7 +171,7 @@ class Pacman
         }
       }
 
-      if (this.futureDirection === Directions.South)
+      if (this.futureDirection === Directions.South && oldDir != Directions.South)
       {
         this.direction = Directions.South;
         if (!this.checkCollision())
@@ -180,7 +180,7 @@ class Pacman
         }
       }
 
-      if (this.futureDirection === Directions.East)
+      if (this.futureDirection === Directions.East && oldDir != Directions.East)
       {
         this.direction = Directions.East;
         if (!this.checkCollision())
@@ -190,6 +190,7 @@ class Pacman
       }
     }
   }
+
 
 
 
