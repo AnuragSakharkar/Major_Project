@@ -453,8 +453,6 @@ class Ghost
     this.xPos = 7;
     this.yPos = 8;
     this.moveCounter = 0;
-    this.futureX;
-    this.futureY;
     this.xAnimate = 0;
     this.yAnimate = 0;
     this.gameState = "chasing";
@@ -472,11 +470,6 @@ class Ghost
     this.westDist = 999999;
     this.eastDist = 999999;
     this.minDirection = Directions.North;
-
-    this.northClear = true;
-    this.southClear = false;
-    this.eastClear = false;
-    this.westClear = false;
   }
 
 
@@ -560,9 +553,11 @@ class Ghost
   turn()
   {
 
-    if (this.moveCounter == 0)
+    if (this.moveCounter == 0 && maze.junctions[this.yPos][this.xPos])
     {
       let oldDir = this.direction;
+      this.choosePath();
+      this.changeDirection();
 
       if (this.futureDirection === Directions.North && oldDir != Directions.North)
       {
@@ -633,29 +628,49 @@ class Ghost
 
   choosePath()
   {
+    this.target();
     if(!((this.xPos === 0 || this.xPos === 14) && this.yPos === 9))
     {
+
       if (!maze.theGrid[this.yPos + 1][this.xPos])
       {
-        this.southDist = dist(this.xPos, this.targetX, this.yPos + 1, this.targetY);
-        this.southClear = true;
+        this.southDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
       }
+      else
+      {
+        this.southDist = 5318008;
+      }
+
       if (!maze.theGrid[this.yPos - 1][this.xPos])
       {
-        this.northDist = dist(this.xPos, this.targetX, this.yPos - 1, this.targetY);
-        this.northClear = true;
+        this.northDist = dist(this.xPos, this.yPos - 1, this.targetX, this.targetY);
       }
+      else
+      {
+        this.northDist = 5318008;
+      }
+
       if (!maze.theGrid[this.yPos][this.xPos + 1])
       {
-        this.eastDist = dist(this.xPos + 1, this.targetX, this.yPos, this.targetY);
-        this.eastClear = true;
+        this.eastDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
       }
+      else
+      {
+        this.eastDist = 5318008;
+      }
+
       if (!maze.theGrid[this.yPos][this.xPos - 1])
       {
-        this.westDist = dist(this.xPos - 1, this.targetX, this.yPos, this.targetY);
-        this.westClear = true;
+        this.westDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
       }
+      else
+      {
+        this.westDist = 5318008;
+      }
+      
     }
+
+    print('N: ' + this.northDist + ' S: ' + this.southDist + ' E: ' + this.eastDist + ' W: ' + this.westDist)
   }
 
 
@@ -667,19 +682,19 @@ class Ghost
   changeDirection()
   {
     this.minDirection = min(this.northDist, this.westDist, this.southDist, this.eastDist);
-    if (this.minDirection === this.northDist && this.northClear)
+    if (this.minDirection === this.northDist)
     {
       this.futureDirection = Directions.North;
     }
-    else if (this.minDirection === this.westDist && this.westClear)
+    else if (this.minDirection === this.westDist)
     {
       this.futureDirection = Directions.West;
     }
-    else if (this.minDirection === this.southDist && this.southClear)
+    else if (this.minDirection === this.southDist)
     {
       this.futureDirection = Directions.South
     }
-    else if (this.minDirection === this.eastDist && this.eastClear)
+    else if (this.minDirection === this.eastDist)
     {
       this.futureDirection = Directions.East;
     }
@@ -691,14 +706,11 @@ class Ghost
 
   update()
   {
-    this.target();
     this.move();
     this.turn();
     this.render();
-    this.choosePath();
     //this.randomTurn();
     this.bounce();
-    this.changeDirection();
     this.checkCollision();
   }
 
@@ -734,11 +746,11 @@ function setup()
 
   windowResized();
 
-  playerPac = new Pacman();
-  Blinky = new Ghost();
   maze = new Grid();
   foods = new Dots();
 
+  playerPac = new Pacman();
+  Blinky = new Ghost();
 }
 
 
