@@ -632,7 +632,7 @@ class Ghost
     if(!((this.xPos === 0 || this.xPos === 14) && this.yPos === 9))
     {
 
-      if (!maze.theGrid[this.yPos + 1][this.xPos])
+      if ((!maze.theGrid[this.yPos + 1][this.xPos]) && (this.direction != Directions.North))
       {
         this.southDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
       }
@@ -641,7 +641,7 @@ class Ghost
         this.southDist = 5318008;
       }
 
-      if (!maze.theGrid[this.yPos - 1][this.xPos])
+      if ((!maze.theGrid[this.yPos - 1][this.xPos]) && (this.direction != Directions.South))
       {
         this.northDist = dist(this.xPos, this.yPos - 1, this.targetX, this.targetY);
       }
@@ -650,7 +650,7 @@ class Ghost
         this.northDist = 5318008;
       }
 
-      if (!maze.theGrid[this.yPos][this.xPos + 1])
+      if ((!maze.theGrid[this.yPos][this.xPos + 1]) && (this.direction != Directions.West))
       {
         this.eastDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
       }
@@ -659,7 +659,7 @@ class Ghost
         this.eastDist = 5318008;
       }
 
-      if (!maze.theGrid[this.yPos][this.xPos - 1])
+      if ((!maze.theGrid[this.yPos][this.xPos - 1]) && (this.direction != Directions.East))
       {
         this.westDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
       }
@@ -669,8 +669,6 @@ class Ghost
       }
       
     }
-
-    print('N: ' + this.northDist + ' S: ' + this.southDist + ' E: ' + this.eastDist + ' W: ' + this.westDist)
   }
 
 
@@ -697,6 +695,26 @@ class Ghost
     else if (this.minDirection === this.eastDist)
     {
       this.futureDirection = Directions.East;
+    }
+    else 
+    {
+      let randomDir = random(0, 4);
+      if (randomDir <= 1 && northDist != 5318008)
+      {
+        this.futureDirection = Directions.North;
+      }
+      else if (randomDir <= 2 && southDist != 5318008)
+      {
+        this.futureDirection = Directions.South;
+      }      
+      else if (randomDir <= 3 && eastDist != 5318008)
+      {
+        this.futureDirection = Directions.East;
+      }
+      else
+      {
+        this.futureDirection = Directions.West;
+      }
     }
   }
 
