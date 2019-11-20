@@ -467,11 +467,16 @@ class Ghost
 
     this.targetX = playerPac.xPos;
     this.targetY = playerPac.yPos;
-    this.southDist = 0;
+    this.southDist = 99999;
     this.northDist = 0;
-    this.westDist = 0;
-    this.eastDist = 0;
+    this.westDist = 999999;
+    this.eastDist = 999999;
     this.minDirection = Directions.North;
+
+    this.northClear = true;
+    this.southClear = false;
+    this.eastClear = false;
+    this.westClear = false;
   }
 
 
@@ -626,55 +631,29 @@ class Ghost
 
   // Find the way to the target tile
 
-  pathFind()
+  choosePath()
   {
     if(!((this.xPos === 0 || this.xPos === 14) && this.yPos === 9))
     {
-      if (maze.junctions[this.yPos][this.xPos])
+      if (!maze.theGrid[this.yPos + 1][this.xPos])
       {
-        if (!maze.theGrid[this.yPos + 1][this.xPos])
-        {
-          this.southDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
-          console.log("bottom clear");
-        }
-        else
-        {
-          this.southDist = 5318008;
-        }
-
-
-        if (!maze.theGrid[this.yPos - 1][this.xPos])
-        {
-          this.northDist = dist(this.xPos, this.yPos - 2, this.targetX, this.targetY);
-          console.log("top clear");
-        }
-        else
-        {
-          this.northDist = 999999999;
-        }
-
-
-        if (!maze.theGrid[this.yPos][this.xPos + 1])
-        {
-          this.eastDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
-          console.log("east clear");
-        }
-        else
-        {
-          this.eastDist = 999999999;
-        }
-
-
-        if (!maze.theGrid[this.yPos][this.xPos - 1])
-        {
-          this.westDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
-          console.log("west clear");
-        }
-        else
-        {
-          this.westDist = 999999999;
-        }
-
+        this.southDist = dist(this.xPos, this.targetX, this.yPos + 1, this.targetY);
+        this.southClear = true;
+      }
+      if (!maze.theGrid[this.yPos - 1][this.xPos])
+      {
+        this.northDist = dist(this.xPos, this.targetX, this.yPos - 1, this.targetY);
+        this.northClear = true;
+      }
+      if (!maze.theGrid[this.yPos][this.xPos + 1])
+      {
+        this.eastDist = dist(this.xPos + 1, this.targetX, this.yPos, this.targetY);
+        this.eastClear = true;
+      }
+      if (!maze.theGrid[this.yPos][this.xPos - 1])
+      {
+        this.westDist = dist(this.xPos - 1, this.targetX, this.yPos, this.targetY);
+        this.westClear = true;
       }
     }
   }
@@ -687,37 +666,22 @@ class Ghost
 
   changeDirection()
   {
-    let directions = [this.southDist, this.northDist, this.westDist, this.eastDist];
-    let lowest = 999999999;
-    let index = -1;
-    for (let i = 0; i < directions.length; i++)
-    {
-      if (directions[i] < lowest)
-      {
-        index = i;
-        lowest = directions[i];
-      }
-    }
-
-    if (index === 1)
+    this.minDirection = min(this.northDist, this.westDist, this.southDist, this.eastDist);
+    if (this.minDirection === this.northDist && this.northClear)
     {
       this.futureDirection = Directions.North;
-      //console.log("North is closest");
     }
-    else if (index === 3)
-    {
-      this.futureDirection = Directions.East;
-      ///console.log("East is closest");
-    }
-    else if (index === 0)
-    {
-      this.futureDirection = Directions.South;
-      ///console.log("South is closest");
-    }
-    else if (index === 2)
+    else if (this.minDirection === this.westDist && this.westClear)
     {
       this.futureDirection = Directions.West;
-      //console.log("West is closest");
+    }
+    else if (this.minDirection === this.southDist && this.southClear)
+    {
+      this.futureDirection = Directions.South
+    }
+    else if (this.minDirection === this.eastDist && this.eastClear)
+    {
+      this.futureDirection = Directions.East;
     }
   }
 
@@ -731,7 +695,7 @@ class Ghost
     this.move();
     this.turn();
     this.render();
-    this.pathFind();
+    this.choosePath();
     //this.randomTurn();
     this.bounce();
     this.changeDirection();
