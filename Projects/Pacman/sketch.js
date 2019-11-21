@@ -24,7 +24,7 @@
 
 // Initialize variables and variable names
 
-let Blinky;
+let oppBlinky;
 let playerPac;
 let maze;
 let rectXOffset;
@@ -510,40 +510,11 @@ class Ghost
 
 
 
-  // Draw the ghost as a red circle at the xAnimate and yAnimate positions of this object.
+  // Draw the ghost (subclass function)
 
   render()
   {
-    push();
-    fill(255, 0, 0);
-    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
-  }
 
-
-
-  // Pick random direction (for now)
-
-  randomTurn()
-  {
-    this.tempVar = floor(random([1], [5]));
-    this.oldDir = this.direction;
-    if (this.tempVar === 1 && this.oldDir != Directions.North && this.oldDir != Directions.South)
-    {
-      this.futureDirection = Directions.North
-    }
-    else if (this.tempVar === 2 && this.oldDir != Directions.South && this.oldDir != Directions.North)
-    {
-      this.futureDirection = Directions.South
-    }
-    else if (this.tempVar === 3 && this.oldDir != Directions.East && this.oldDir != Directions.West)
-    {
-      this.futureDirection = Directions.East
-    }
-    else if (this.oldDir != Directions.West && this.oldDir != Directions.East)
-    {
-      this.futureDirection = Directions.West
-    }
   }
 
 
@@ -615,11 +586,11 @@ class Ghost
 
 
 
-  // Set the target to be pacman's location
+  // Set the target (subclass function)
+
   target()
   {
-    this.targetX = playerPac.xPos;
-    this.targetY = playerPac.yPos;
+
   }
 
 
@@ -667,15 +638,13 @@ class Ghost
       {
         this.westDist = 5318008;
       }
-      
+
     }
   }
 
 
 
   // Check and change future direction
-  // THIS DOESN'T WORK BECAUSE YOU ARE NOT CHECKING IF THE DIRECTION IS CLEAR - FIX THIS!! ADD DIRECTIONS FROM
-  // THE pathFind THING TO AN ARRAY IF THEY ARE CLEAR AND THIS MIGHT WORK!
 
   changeDirection()
   {
@@ -696,7 +665,7 @@ class Ghost
     {
       this.futureDirection = Directions.East;
     }
-    else 
+    else
     {
       let randomDir = random(0, 4);
       if (randomDir <= 1 && northDist != 5318008)
@@ -706,7 +675,7 @@ class Ghost
       else if (randomDir <= 2 && southDist != 5318008)
       {
         this.futureDirection = Directions.South;
-      }      
+      }
       else if (randomDir <= 3 && eastDist != 5318008)
       {
         this.futureDirection = Directions.East;
@@ -727,9 +696,196 @@ class Ghost
     this.move();
     this.turn();
     this.render();
-    //this.randomTurn();
     this.bounce();
     this.checkCollision();
+  }
+
+}
+
+
+
+// Define the Blinky subclass
+
+class Blinky extends Ghost
+{
+
+  // Constructor for the Blinky subclass to initialize the values.
+
+  constructor()
+  {
+    super();
+    this.xPos = 3;
+    this.yPos = 8;
+  }
+
+
+
+  // Draw the ghost as a red circle at the xAnimate and yAnimate positions of this object.
+
+  render()
+  {
+    push();
+    fill(255, 0, 0);
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
+  }
+
+
+
+  // Target function to target Pacman's position
+
+  target()
+  {
+    this.targetX = playerPac.xPos;
+    this.targetY = playerPac.yPos;
+  }
+
+}
+
+
+
+// Define the Pinky subclass
+
+class Pinky extends Ghost
+{
+
+  // Constructor for the Pinky subclass to initialize the values.
+
+  constructor()
+  {
+    super();
+    this.xPos = 5;
+    this.yPos = 8;
+  }
+
+
+
+  // Draw the ghost as a pink circle at the xAnimate and yAnimate positions of this object.
+
+  render()
+  {
+    push();
+    fill(255, 0, 255);
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
+  }
+
+
+
+  // Target function to target the tile four tiles ahead of Pacman's current position (unless facing up, in which case Pinky targets the tile 4)
+  // up and 4 to the left of Pacman's position - vector addition overflow error in the original game
+
+  target()
+  {
+    if (playerPac.direction === Directions.North)
+    {
+      this.targetX = playerPac.xPos - 4;
+      this.targetY = playerPac.yPos - 4;
+    }
+    else
+    {
+      this.targetX = playerPac.xPos + (4 * playerPac.direction.x);
+      this.targetY = playerPac.yPos + (4 * playerPac.direction.y);
+    }
+  }
+
+}
+
+
+
+// Define the Inky subclass
+
+class Inky extends Ghost
+{
+
+  // Constructor for the Inky subclass to initialize the values.
+
+  constructor()
+  {
+    super();
+    this.xPos = 9;
+    this.yPos = 8;
+  }
+
+
+
+  // Draw the ghost as an aqua circle at the xAnimate and yAnimate positions of this object.
+
+  render()
+  {
+    push();
+    fill(0, 255, 255);
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
+  }
+
+
+
+  // Target the tile received when you flip the vector drawn between Pacman and Blinky around 180 degrees.
+
+  target()
+  {
+    if (playerPac.direction === Directions.North)
+    {
+      let pointX = playerPac.xPos - 2;
+      let pointY = playerPac.yPos - 2;
+    }
+    else
+    {
+      let pointX = playerPac.xPos + (4 * playerPac.direction.x);
+      let pointY = playerPac.yPos + (4 * playerPac.direction.y);
+    }
+
+    this.targetX = playerPac.xPos - (oppBlinky.xPos - playerPac.xPos);
+    this.targetY = playerPac.yPos - (oppBlinky.yPos - playerPac.yPos);
+  }
+
+}
+
+
+
+// Define the Clyde subclass
+
+class Clyde extends Ghost
+{
+
+  // Constructor for the Clyde subclass to initialize the values.
+
+  constructor()
+  {
+    super();
+    this.xPos = 11;
+    this.yPos = 8;
+  }
+
+
+
+  // Draw the ghost as an orange circle at the xAnimate and yAnimate positions of this object.
+
+  render()
+  {
+    push();
+    fill(255, 138, 10);
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
+  }
+
+
+
+  // If close to Pacman, target the bottom left corner but if not, target Pacman
+
+  target()
+  {
+    if (dist(this.xPos, this.yPos, playerPac.xPos, playerPac.yPos) <= 7)
+    {
+      this.targetX = 0;
+      this.targetY = 21;
+    }
+    else
+    {
+      this.targetX = playerPac.xPos;
+      this.targetY = playerPac.yPos;
+    }
   }
 
 }
@@ -758,7 +914,7 @@ function windowResized()
 function setup()
 {
 
-  frameRate(60);
+  frameRate(120);
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
 
@@ -768,7 +924,11 @@ function setup()
   foods = new Dots();
 
   playerPac = new Pacman();
-  Blinky = new Ghost();
+
+  oppBlinky = new Blinky();
+  oppPinky = new Pinky();
+  oppInky = new Inky();
+  oppClyde = new Clyde();
 }
 
 
@@ -782,7 +942,10 @@ function draw()
   noStroke();
   background(0);
 
-  Blinky.update();
+  oppBlinky.update();
+  oppPinky.update();
+  oppInky.update();
+  oppClyde.update();
 
   playerPac.update();
   maze.update();
