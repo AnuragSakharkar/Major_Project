@@ -347,7 +347,7 @@ class Grid
       {
         if(this.theGrid[i][j])
         {
-          square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar);
+          square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1);
         }
       }
     }
