@@ -262,7 +262,6 @@ class Pacman
     this.turn();
     this.move();
     this.teleport();
-    //this.turn();
     this.checkCollision();
   }
 
@@ -282,7 +281,6 @@ class Grid
   {
     this.cols = 15;
     this.rows = 21;
-    this.theGrid = new Array();
     this.theGrid =
     [
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
@@ -379,6 +377,7 @@ class Dots
   {
     this.radius = 5;
     this.dotGrid = [];
+    this.layDots();
   }
 
 
@@ -391,14 +390,14 @@ class Dots
     {
       for (let j = 0; j < maze.rows; j++)
       {
-        if (!(maze.theGrid[i, j]))
+        if (!(maze.theGrid[i][j]))
         {
-          let thisDot =
-          {
+          this.dotGrid.push(
+            {
             x: i,
-            y: j,
-          }
-          this.dotGrid.push(thisDot);
+            y: j
+            }
+          );
         }
       }
     }
@@ -410,17 +409,17 @@ class Dots
 
   render()
   {
-    for (let i = this.dotGrid.length; i > 0; --i)
+    for (let i = this.dotGrid.length - 1; i >= 0; --i)
     {
-      if (playerPac.xPos === this.x && playerPac.yPos === this.y)
+      if (playerPac.xPos === this.dotGrid[i].x && playerPac.yPos === this.dotGrid[i].y)
       {
-        this.dotGrid().splice(i, 1);
+        this.dotGrid.splice(i, 1);
       }
       else
       {
         push();
         fill(255);
-        circle(this.dotGrid[i].x + maze.rectXOffset, this.dotGrid[i].y, this.radius);
+        circle((this.dotGrid[i].x * scalar) + maze.rectXOffset, (this.dotGrid[i].y * scalar) + rectYOffset, this.radius);
         pop();
       }
     }
@@ -432,7 +431,6 @@ class Dots
 
   update()
   {
-    this.layDots();
     this.render();
   }
 
@@ -902,6 +900,16 @@ function windowResized()
   scalar = windowHeight/21;
   rectYOffset = scalar/2;
   rectXOffset =  (windowWidth/2 - (7.5 * scalar));
+}
+
+
+
+
+// Manhattan distance calculation
+
+function dist(x1, y1, x2, y2)
+{
+  return(abs(x1-x2) + abs(y1-y2));
 }
 
 
