@@ -388,11 +388,12 @@ class Dots
   {
     for (let i = 0; i < maze.cols; i++)
     {
+      this.dotGrid.push([]);
       for (let j = 0; j < maze.rows; j++)
       {
         if (!(maze.theGrid[i][j]))
         {
-          this.dotGrid.push(
+          this.dotGrid[i].push(
             {
             x: i,
             y: j
@@ -568,17 +569,17 @@ class Ghost
 
 
 
-  // Bounce the ghost if it tries to move out of the maze
+  // Teleport function for if the Ghost goes through the left or the right of the maze
 
-  bounce()
+  teleport()
   {
-    if (this.xPos === 0 && this.yPos === 9)
+    if (this.xPos === 0 && this.yPos === 9 && this.direction === Directions.West)
     {
-      this.direction = Directions.East;
+      this.xPos = 14;
     }
-    else if (this.xPos === 14 && this.yPos === 9)
+    else if (this.xPos === 14 && this.yPos === 9 && this.direction === Directions.East)
     {
-      this.direction = Directions.West;
+      this.xPos = 0;
     }
   }
 
@@ -694,7 +695,7 @@ class Ghost
     this.move();
     this.turn();
     this.render();
-    this.bounce();
+    this.teleport();
     this.checkCollision();
   }
 
