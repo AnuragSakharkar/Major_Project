@@ -827,19 +827,21 @@ class Inky extends Ghost
 
   target()
   {
+    let pointX;
+    let pointY;
     if (playerPac.direction === Directions.North)
     {
-      let pointX = playerPac.xPos - 2;
-      let pointY = playerPac.yPos - 2;
+      pointX = playerPac.xPos - 2;
+      pointY = playerPac.yPos - 2;
     }
     else
     {
-      let pointX = playerPac.xPos + (4 * playerPac.direction.x);
-      let pointY = playerPac.yPos + (4 * playerPac.direction.y);
+      pointX = playerPac.xPos + (4 * playerPac.direction.x);
+      pointY = playerPac.yPos + (4 * playerPac.direction.y);
     }
 
-    this.targetX = playerPac.xPos - (oppBlinky.xPos - playerPac.xPos);
-    this.targetY = playerPac.yPos - (oppBlinky.yPos - playerPac.yPos);
+    this.targetX = pointX + (pointX - oppBlinky.xPos);
+    this.targetY = pointY + (pointY - oppBlinky.yPos);
   }
 
 }
@@ -954,15 +956,15 @@ function draw()
   noStroke();
   background(0);
 
-  oppBlinky.update();
-  oppPinky.update();
-  oppInky.update();
-  oppClyde.update();
 
   playerPac.update();
   maze.update();
   foods.update();
 
+  oppBlinky.update();
+  oppPinky.update();
+  oppInky.update();
+  oppClyde.update();
 }
 
 
