@@ -345,7 +345,7 @@ class Grid
       {
         if(this.theGrid[i][j])
         {
-          square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1);
+          square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar);
         }
       }
     }
@@ -391,7 +391,7 @@ class Dots
       this.dotGrid.push([]);
       for (let j = 0; j < maze.rows; j++)
       {
-        if (!(maze.theGrid[i][j]))
+        if (!(maze.theGrid[j][i]))
         {
           this.dotGrid[i].push(
             {
@@ -412,16 +412,19 @@ class Dots
   {
     for (let i = this.dotGrid.length - 1; i >= 0; --i)
     {
-      if (playerPac.xPos === this.dotGrid[i].x && playerPac.yPos === this.dotGrid[i].y)
+      for (let j = this.dotGrid[i].length - 1; j >= 0; --j)
       {
-        this.dotGrid.splice(i, 1);
-      }
-      else
-      {
-        push();
-        fill(255);
-        circle((this.dotGrid[i].x * scalar) + maze.rectXOffset, (this.dotGrid[i].y * scalar) + rectYOffset, this.radius);
-        pop();
+        if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
+        {
+          this.dotGrid[i].splice(j, 1);
+        }
+        else
+        {
+          push();
+          fill(255);
+          circle((this.dotGrid[i][j].x * scalar) + rectXOffset, (this.dotGrid[i][j].y * scalar) + rectYOffset, this.radius);
+          pop();
+        }
       }
     }
   }
