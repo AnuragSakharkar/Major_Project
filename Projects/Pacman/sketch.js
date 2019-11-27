@@ -80,6 +80,7 @@ class Pacman
   {
     this.xPos = 7;
     this.yPos = 15;
+    this.dotsEaten = 0;
     this.moveCounter = 0;
     this.xAnimate = 0;
     this.yAnimate = 0;
@@ -144,7 +145,6 @@ class Pacman
   }
 
 
-
   // The turn function that uses futureDirection to turn
 
   turn()
@@ -190,7 +190,6 @@ class Pacman
       }
     }
   }
-
 
 
 
@@ -376,6 +375,7 @@ class Dots
   constructor()
   {
     this.radius = 5;
+    this.totalDots = 0;
     this.dotGrid = [];
     this.layDots();
   }
@@ -399,6 +399,7 @@ class Dots
             y: j
             }
           );
+          this.totalDots += 1;
         }
       }
     }
@@ -417,6 +418,7 @@ class Dots
         if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
         {
           this.dotGrid[i].splice(j, 1);
+          playerPac.dotsEaten += 1;
         }
         else
         {
