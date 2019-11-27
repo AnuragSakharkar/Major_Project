@@ -30,7 +30,8 @@ let maze;
 let rectXOffset;
 let rectYOffset;
 let scalar;
-let eatTheDot
+let eatTheDot;
+let gameMode = "PACMAN";
 
 
 
@@ -985,15 +986,23 @@ function draw()
   noStroke();
   background(0);
 
+  if (gameMode === "MENU")
+  {
 
-  playerPac.update();
-  maze.update();
-  foods.update();
+  }
 
-  oppBlinky.update();
-  oppPinky.update();
-  oppInky.update();
-  oppClyde.update();
+
+  else (gameMode === "PACMAN")
+  {
+    playerPac.update();
+    maze.update();
+    foods.update();
+
+    oppBlinky.update();
+    oppPinky.update();
+    oppInky.update();
+    oppClyde.update();
+  }
 }
 
 
