@@ -29,7 +29,8 @@ let playerPac;
 let maze;
 let rectXOffset;
 let rectYOffset;
-let scalar
+let scalar;
+let eatTheDot
 
 
 
@@ -81,6 +82,7 @@ class Pacman
     this.xPos = 7;
     this.yPos = 15;
     this.dotsEaten = 0;
+    this.ghostsEaten = 0;
     this.moveCounter = 0;
     this.xAnimate = 0;
     this.yAnimate = 0;
@@ -251,6 +253,20 @@ class Pacman
   }
 
 
+  
+  // Display the score in the top left
+
+  displayScore()
+  {
+    push();
+    fill(255);
+    textAlign(LEFT, TOP);
+    textSize(scalar/2);
+    text ("score = " + (this.dotsEaten * 10), windowWidth - rectXOffset, rectYOffset);
+    pop();
+  }
+
+
 
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
@@ -262,6 +278,7 @@ class Pacman
     this.move();
     this.teleport();
     this.checkCollision();
+    this.displayScore();
   }
 
 }
@@ -419,6 +436,8 @@ class Dots
         {
           this.dotGrid[i].splice(j, 1);
           playerPac.dotsEaten += 1;
+          eatTheDot.play();
+
         }
         else
         {
@@ -923,6 +942,14 @@ function dist(x1, y1, x2, y2)
 
 
 
+function preload()
+{
+  eatTheDot = loadSound('assets/eatingSound.wav');
+}
+
+
+
+
 // Main setup and draw loops
 
 // Setup loop - initializes the canvas, universally converts angles to degrees, and creates objects from the classes defined above.
@@ -979,7 +1006,6 @@ function draw()
 // - Levels where the speed and timing of the Ghosts are changed
 // - Start/end screen
 // - Menu to choose custom colours for Pacman
-// - Trying to get this running on Retropie (will require extensive research and coding, part of the final project maybe?)
 
 
 // :)
