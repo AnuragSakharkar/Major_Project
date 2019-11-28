@@ -355,14 +355,16 @@ class Grid
   render()
   {
     push();
-    fill(0, 0, 255);
+    strokeWeight(5);
+    stroke(70, 70, 255);
+    fill(0);
     for (let i = 0; i < this.rows; i++)
     {
       for (let j = 0; j < this.cols; j++)
       {
         if(this.theGrid[i][j])
         {
-          square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar);
+          square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1, 5);
         }
       }
     }
@@ -946,6 +948,8 @@ function dist(x1, y1, x2, y2)
 function preload()
 {
   eatTheDot = loadSound('assets/eatingSound.wav');
+  eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
+  playSiren = loadSound('assets/sirenSound.mp3');
 }
 
 
