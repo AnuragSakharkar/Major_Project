@@ -254,7 +254,7 @@ class Pacman
   }
 
 
-  
+
   // Display the score in the top left
 
   displayScore()
@@ -411,7 +411,7 @@ class Dots
       this.dotGrid.push([]);
       for (let j = 0; j < maze.rows; j++)
       {
-        if (!(maze.theGrid[j][i]))
+        if (!maze.theGrid[j][i])
         {
           this.dotGrid[i].push(
             {
@@ -439,8 +439,7 @@ class Dots
         {
           this.dotGrid[i].splice(j, 1);
           playerPac.dotsEaten += 1;
-          eatTheDot.play();
-
+          //eatTheDot.play();
         }
         else
         {
@@ -947,9 +946,9 @@ function dist(x1, y1, x2, y2)
 
 function preload()
 {
-  eatTheDot = loadSound('assets/eatingSound.wav');
-  eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
-  playSiren = loadSound('assets/sirenSound.mp3');
+  //eatTheDot = loadSound('assets/eatingSound.wav');
+  //eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
+  //playSiren = loadSound('assets/sirenSound.mp3');
 }
 
 
