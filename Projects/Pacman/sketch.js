@@ -300,6 +300,9 @@ class Grid
     this.rows = 21;
     this.theGrid =
     [
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       [true, false,false,false,false,false,false,true, false,false,false,false,false,false,true],
       [true, false,true, false,true, true, false,true, false,true, true, false,true, false,true],
@@ -320,10 +323,14 @@ class Grid
       [true, false,false,false,true, false,false,true, false,false,true, false,false,false,true],
       [true, false,true, true, true ,true, false,true, false,true, true, true, true, false,true],
       [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     ]
     this.junctions =
     [
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,true, false,true, false,false,true, false,true, false,false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -344,6 +351,7 @@ class Grid
       [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
   }
@@ -411,7 +419,7 @@ class Dots
       this.dotGrid.push([]);
       for (let j = 0; j < maze.rows; j++)
       {
-        if (!(maze.theGrid[j][i]))
+        if (!maze.theGrid[j][i] && j >= 4)
         {
           this.dotGrid[i].push(
             {
@@ -440,7 +448,6 @@ class Dots
           this.dotGrid[i].splice(j, 1);
           playerPac.dotsEaten += 1;
           eatTheDot.play();
-
         }
         else
         {
