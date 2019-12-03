@@ -548,14 +548,13 @@ class Ghost
 
   turn()
   {
-
     if (this.moveCounter == 0 && maze.junctions[this.yPos][this.xPos])
     {
       let oldDir = this.direction;
       this.choosePath();
       this.changeDirection();
 
-      if (this.futureDirection === Directions.North && oldDir != Directions.North)
+      if (this.futureDirection === Directions.North && oldDir != Directions.North && (this.yPos != 7 || this.yPos != 15) && (this.xPos != 6 || this.xPos != 8))
       {
         this.direction = Directions.North;
         if (this.checkCollision())
@@ -753,6 +752,13 @@ class Blinky extends Ghost
     fill(255, 0, 0);
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
     pop();
+    push();
+    fill(255);
+    circle(6 * scalar + rectXOffset, 7 * scalar + rectYOffset, this.size);
+    circle(6 * scalar + rectXOffset, 15 * scalar + rectYOffset, this.size);
+    circle(8 * scalar + rectXOffset, 7 * scalar + rectYOffset, this.size);
+    circle(8 * scalar + rectXOffset, 15 * scalar + rectYOffset, this.size);
+    pop();
   }
 
 
@@ -934,21 +940,30 @@ function windowResized()
 
 
 
-// Manhattan distance calculation
+// Run the game
 
-function dist(x1, y1, x2, y2)
+function runGame()
 {
-  return(abs(x1-x2) + abs(y1-y2));
+  playerPac.update();
+  maze.update();
+  foods.update();
+
+  oppBlinky.update();
+  oppPinky.update();
+  oppInky.update();
+  oppClyde.update();
 }
 
 
 
 
+// preload function to initialize and load the sound files
+
 function preload()
 {
-  //eatTheDot = loadSound('assets/eatingSound.wav');
-  //eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
-  //playSiren = loadSound('assets/sirenSound.mp3');
+  eatTheDot = loadSound('assets/eatingSound.wav');
+  eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
+  playSiren = loadSound('assets/sirenSound.mp3');
 }
 
 
@@ -964,6 +979,8 @@ function setup()
   frameRate(120);
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
+  rectMode(CENTER);
+  noStroke();
 
   windowResized();
 
@@ -984,9 +1001,6 @@ function setup()
 
 function draw()
 {
-
-  rectMode(CENTER);
-  noStroke();
   background(0);
 
   if (gameMode === "MENU")
@@ -995,16 +1009,9 @@ function draw()
   }
 
 
-  else (gameMode === "PACMAN")
+  else if (gameMode === "PACMAN")
   {
-    playerPac.update();
-    maze.update();
-    foods.update();
-
-    oppBlinky.update();
-    oppPinky.update();
-    oppInky.update();
-    oppClyde.update();
+    runGame();
   }
 }
 
