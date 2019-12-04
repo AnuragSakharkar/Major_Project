@@ -548,7 +548,7 @@ class Ghost
 
   turn()
   {
-    if (this.moveCounter == 0 && maze.junctions[this.yPos][this.xPos])
+    if (this.moveCounter == 0 && maze.junctions[this.yPos][this.xPos] && ((this.xPos != 7 && this.yPos != 7) || (this.xPos != 6 && this.yPos != 15) || (this.xPos != 8 && this.yPos != 15)))
     {
       let oldDir = this.direction;
       this.choosePath();
@@ -751,13 +751,6 @@ class Blinky extends Ghost
     push();
     fill(255, 0, 0);
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
-    push();
-    fill(255);
-    circle(6 * scalar + rectXOffset, 7 * scalar + rectYOffset, this.size);
-    circle(6 * scalar + rectXOffset, 15 * scalar + rectYOffset, this.size);
-    circle(8 * scalar + rectXOffset, 7 * scalar + rectYOffset, this.size);
-    circle(8 * scalar + rectXOffset, 15 * scalar + rectYOffset, this.size);
     pop();
   }
 
