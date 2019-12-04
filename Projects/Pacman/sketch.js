@@ -81,7 +81,7 @@ class Pacman
   constructor()
   {
     this.xPos = 7;
-    this.yPos = 15;
+    this.yPos = 18;
     this.dotsEaten = 0;
     this.ghostsEaten = 0;
     this.moveCounter = 0;
@@ -200,11 +200,11 @@ class Pacman
 
   teleport()
   {
-    if (this.xPos === 0 && this.yPos === 9 && this.direction === Directions.West)
+    if (this.xPos === 0 && this.yPos === 12 && this.direction === Directions.West)
     {
       this.xPos = 14;
     }
-    else if (this.xPos === 14 && this.yPos === 9 && this.direction === Directions.East)
+    else if (this.xPos === 14 && this.yPos === 12 && this.direction === Directions.East)
     {
       this.xPos = 0;
     }
@@ -297,9 +297,12 @@ class Grid
   constructor()
   {
     this.cols = 15;
-    this.rows = 21;
+    this.rows = 25;
     this.theGrid =
     [
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       [true, false,false,false,false,false,false,true, false,false,false,false,false,false,true],
       [true, false,true, false,true, true, false,true, false,true, true, false,true, false,true],
@@ -320,10 +323,14 @@ class Grid
       [true, false,false,false,true, false,false,true, false,false,true, false,false,false,true],
       [true, false,true, true, true ,true, false,true, false,true, true, true, true, false,true],
       [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true],
-      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
     ]
     this.junctions =
     [
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,true, false,true, false,false,true, false,true, false,false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -344,6 +351,7 @@ class Grid
       [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
   }
@@ -356,7 +364,7 @@ class Grid
   {
     push();
     strokeWeight(5);
-    stroke(70, 70, 255);
+    stroke(60, 60, 255);
     fill(0);
     for (let i = 0; i < this.rows; i++)
     {
@@ -402,7 +410,7 @@ class Dots
 
 
 
-  // Function to calculate the positions of the dots and add them to an array
+  // Function to calculate the positions of the dots and add them to an array if in the maze boundaries
 
   layDots()
   {
@@ -411,7 +419,7 @@ class Dots
       this.dotGrid.push([]);
       for (let j = 0; j < maze.rows; j++)
       {
-        if (!maze.theGrid[j][i])
+        if (!maze.theGrid[j][i] && j > 2 && j < 24)
         {
           this.dotGrid[i].push(
             {
@@ -548,7 +556,7 @@ class Ghost
 
   turn()
   {
-    if (this.moveCounter == 0 && maze.junctions[this.yPos][this.xPos] && ((this.xPos != 7 && this.yPos != 7) || (this.xPos != 6 && this.yPos != 15) || (this.xPos != 8 && this.yPos != 15)))
+    if (this.moveCounter == 0 && maze.junctions[this.yPos][this.xPos] && ((this.xPos != 7 && this.yPos != 10) || (this.xPos != 6 && this.yPos != 18) || (this.xPos != 8 && this.yPos != 18)))
     {
       let oldDir = this.direction;
       this.choosePath();
@@ -598,11 +606,11 @@ class Ghost
 
   teleport()
   {
-    if (this.xPos === 0 && this.yPos === 9 && this.direction === Directions.West)
+    if (this.xPos === 0 && this.yPos === 12 && this.direction === Directions.West)
     {
       this.xPos = 14;
     }
-    else if (this.xPos === 14 && this.yPos === 9 && this.direction === Directions.East)
+    else if (this.xPos === 14 && this.yPos === 12 && this.direction === Directions.East)
     {
       this.xPos = 0;
     }
@@ -925,7 +933,7 @@ function windowResized()
 {
   resizeCanvas(windowWidth, windowHeight);
 
-  scalar = windowHeight/21;
+  scalar = windowHeight/(maze.rows);
   rectYOffset = scalar/2;
   rectXOffset =  (windowWidth/2 - (7.5 * scalar));
 }
@@ -969,13 +977,11 @@ function preload()
 function setup()
 {
 
-  frameRate(120);
+  frameRate(160);
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
   rectMode(CENTER);
   noStroke();
-
-  windowResized();
 
   maze = new Grid();
   foods = new Dots();
@@ -986,6 +992,8 @@ function setup()
   oppPinky = new Pinky();
   oppInky = new Inky();
   oppClyde = new Clyde();
+
+  windowResized();
 }
 
 
