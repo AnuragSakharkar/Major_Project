@@ -7,4 +7,13 @@ body, html {
 ::-webkit-scrollbar {
     display: none;
 }
+
+@font-face {
+    font-family:emulogic;
+    src:url(assets/emulogic.ttf);
+}
+
+p {
+    font-family: emulogic;
+}
  

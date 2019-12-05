@@ -31,6 +31,8 @@ let rectXOffset;
 let rectYOffset;
 let scalar;
 let eatTheDot;
+let gameFrames;
+let highScore;
 let gameMode = "PACMAN";
 
 
@@ -87,7 +89,7 @@ class Pacman
     this.moveCounter = 0;
     this.xAnimate = 0;
     this.yAnimate = 0;
-    this.scoreAmount = 0;
+    this.score = 0;
     this.gameState = "alive";
     this.direction = Directions.West;
     this.futureDirection = Directions.West;
@@ -99,18 +101,16 @@ class Pacman
 
 
 
-  // Move function to change the xPos/yPos of the Pacman over between blocks while the actual pacman object stays in the block. The pacman moves
-  // over to the new block once the Pacman has been "rendered" in the center of that block. This is also partly why the turning mechanism is so
-  // janky for now.
+  // Move function to change the xPos/yPos of the Pacman over between blocks while the actual pacman object stays in the block.
 
   move()
   {
     if(this.checkCollision())
     {
-      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/60) * 2));
-      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/60) * 2));
+      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/inverseSpeed) * 2));
+      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/inverseSpeed) * 2));
 
-      if(this.moveCounter < 30)
+      if(this.moveCounter < inverseSpeed/2)
       {
         this.moveCounter++;
       }
@@ -255,20 +255,6 @@ class Pacman
 
 
 
-  // Display the score in the top left
-
-  displayScore()
-  {
-    push();
-    fill(255);
-    textAlign(LEFT, TOP);
-    textSize(scalar/2);
-    text ("score = " + (this.dotsEaten * 10), windowWidth - rectXOffset, rectYOffset);
-    pop();
-  }
-
-
-
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
   update()
@@ -279,7 +265,6 @@ class Pacman
     this.move();
     this.teleport();
     this.checkCollision();
-    this.displayScore();
   }
 
 }
@@ -298,6 +283,7 @@ class Grid
   {
     this.cols = 15;
     this.rows = 25;
+    this.totalFrames = 0;
     this.theGrid =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -381,11 +367,42 @@ class Grid
 
 
 
+  // Display the score in the center
+
+  displayScore()
+  {
+    push();
+    fill(255);
+    textAlign(LEFT, TOP);
+    textSize(scalar/1.75);
+
+    if ((playerPac.score) >= highScore)
+    {
+      highScore = playerPac.score;
+    }
+
+    this.totalFrames += 1;
+    if (this.totalFrames % 60 <= 30)
+    {
+      text ("1UP", (rectXOffset - (scalar / 4.5)), rectYOffset);
+    }
+
+    text("HIGH SCORE", (rectXOffset + (scalar * 4.25)), rectYOffset);
+    text(highScore, (rectXOffset + (scalar * 5.8)), rectYOffset + scalar);
+
+    text(playerPac.score, (rectXOffset - (scalar / 5)), rectYOffset + scalar);
+
+    
+  }
+  
+  
+  
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
   update()
   {
     this.render();
+    this.displayScore();
   }
 
 }
@@ -446,7 +463,7 @@ class Dots
         if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
         {
           this.dotGrid[i].splice(j, 1);
-          playerPac.dotsEaten += 1;
+          playerPac.score += 10;
           //eatTheDot.play();
         }
         else
@@ -514,10 +531,10 @@ class Ghost
   {
     if(!this.checkCollision())
     {
-      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/60) * 2));
-      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/60) * 2));
+      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/inverseSpeed) * 2));
+      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/inverseSpeed) * 2));
 
-      if(this.moveCounter < 30)
+      if(this.moveCounter < inverseSpeed/2)
       {
         this.moveCounter++;
       }
@@ -965,6 +982,7 @@ function preload()
   eatTheDot = loadSound('assets/eatingSound.wav');
   eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
   playSiren = loadSound('assets/sirenSound.mp3');
+  emulogic = loadFont('assets/emulogic.ttf');
 }
 
 
@@ -976,11 +994,15 @@ function preload()
 
 function setup()
 {
+  totalFrames = 0;
+  inverseSpeed = 40;
+  highScore = 100;
 
-  frameRate(160);
+  frameRate(60);
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
   rectMode(CENTER);
+  textFont(emulogic);
   noStroke();
 
   maze = new Grid();
