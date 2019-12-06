@@ -274,7 +274,7 @@ class Grid
   constructor()
   {
     this.cols = 15;
-    this.rows = 25;
+    this.rows = 26;
     this.totalFrames = 0;
     this.theGrid =
     [
@@ -303,6 +303,7 @@ class Grid
       [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true],
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
     this.junctions =
     [
@@ -329,6 +330,7 @@ class Grid
       [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
@@ -383,6 +385,8 @@ class Grid
     text(highScore, (rectXOffset + (scalar * 5.8)), rectYOffset + scalar);
 
     text(playerPac.score, (rectXOffset - (scalar / 5)), rectYOffset + scalar);
+
+    text("TEST STRING", (rectXOffset - (scalar / 5)), windowHeight - (1.5 * scalar));
 
     
   }
@@ -937,7 +941,7 @@ class Clyde extends Ghost
 
 
 
-// Change the canvas size and reset all the other elements if the window is resized
+// Change the canvas size and reset all the dependent elements if the window is resized
 
 function windowResized()
 {
