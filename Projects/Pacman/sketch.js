@@ -24,15 +24,6 @@
 
 // Initialize variables and variable names
 
-let oppBlinky;
-let playerPac;
-let maze;
-let rectXOffset;
-let rectYOffset;
-let scalar;
-let eatTheDot;
-let gameFrames;
-let highScore;
 let gameMode = "PACMAN";
 
 
@@ -87,6 +78,7 @@ class Pacman
     this.dotsEaten = 0;
     this.ghostsEaten = 0;
     this.moveCounter = 0;
+    this.inverseSpeed = 20;
     this.xAnimate = 0;
     this.yAnimate = 0;
     this.score = 0;
@@ -107,10 +99,10 @@ class Pacman
   {
     if(this.checkCollision())
     {
-      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/inverseSpeed) * 2));
-      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/inverseSpeed) * 2));
+      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/this.inverseSpeed) * 2));
+      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/this.inverseSpeed) * 2));
 
-      if(this.moveCounter < inverseSpeed/2)
+      if(this.moveCounter < this.inverseSpeed/2)
       {
         this.moveCounter++;
       }
@@ -502,6 +494,7 @@ class Ghost
   {
     this.xPos = 7;
     this.yPos = 8;
+    this.inverseSpeed = 40;
     this.moveCounter = 0;
     this.xAnimate = 0;
     this.yAnimate = 0;
@@ -531,10 +524,10 @@ class Ghost
   {
     if(!this.checkCollision())
     {
-      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/inverseSpeed) * 2));
-      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/inverseSpeed) * 2));
+      this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/this.inverseSpeed) * 2));
+      this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/this.inverseSpeed) * 2));
 
-      if(this.moveCounter < inverseSpeed/2)
+      if(this.moveCounter < this.inverseSpeed/2)
       {
         this.moveCounter++;
       }
@@ -763,8 +756,8 @@ class Blinky extends Ghost
   constructor()
   {
     super();
-    this.xPos = 3;
-    this.yPos = 8;
+    this.xPos = 9;
+    this.yPos = 11;
   }
 
 
@@ -804,7 +797,7 @@ class Pinky extends Ghost
   {
     super();
     this.xPos = 5;
-    this.yPos = 8;
+    this.yPos = 11;
   }
 
 
@@ -852,8 +845,8 @@ class Inky extends Ghost
   constructor()
   {
     super();
-    this.xPos = 9;
-    this.yPos = 8;
+    this.xPos = 3;
+    this.yPos = 11;
   }
 
 
@@ -906,7 +899,7 @@ class Clyde extends Ghost
   {
     super();
     this.xPos = 11;
-    this.yPos = 8;
+    this.yPos = 11;
   }
 
 
@@ -995,7 +988,6 @@ function preload()
 function setup()
 {
   totalFrames = 0;
-  inverseSpeed = 40;
   highScore = 100;
 
   frameRate(60);
@@ -1028,7 +1020,7 @@ function draw()
 
   if (gameMode === "MENU")
   {
-
+    
   }
 
 
@@ -1037,6 +1029,7 @@ function draw()
     runGame();
   }
 }
+
 
 
 // Possible future improvements/stuff I will probably add for fun:
