@@ -373,6 +373,7 @@ class Grid
     if ((playerPac.score) >= highScore)
     {
       highScore = playerPac.score;
+      //storeItem(); FOR SCORE
     }
 
     this.totalFrames += 1;
