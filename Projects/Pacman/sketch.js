@@ -75,6 +75,7 @@ class Pacman
   {
     this.xPos = 7;
     this.yPos = 18;
+    this.lives = 3;
     this.dotsEaten = 0;
     this.ghostsEaten = 0;
     this.moveCounter = 0;
@@ -274,9 +275,9 @@ class Grid
   constructor()
   {
     this.cols = 15;
-    this.rows = 26;
+    this.rows = 25;
     this.totalFrames = 0;
-    this.theGrid =
+    this.theGrid =  
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -302,7 +303,6 @@ class Grid
       [true, false,true, true, true ,true, false,true, false,true, true, true, true, false,true],
       [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true],
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
     this.junctions =
@@ -330,7 +330,6 @@ class Grid
       [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
@@ -363,13 +362,8 @@ class Grid
 
   // Display the score in the center
 
-  displayScore()
+  displayText()
   {
-    push();
-    fill(255);
-    textAlign(LEFT, TOP);
-    textSize(scalar/1.75);
-
     if ((playerPac.score) >= highScore)
     {
       highScore = playerPac.score;
@@ -382,13 +376,35 @@ class Grid
       text ("1UP", (rectXOffset - (scalar / 4.5)), rectYOffset);
     }
 
+    push();
+    fill(255);
+    textAlign(LEFT, TOP);
+    textSize(scalar/1.75);
     text("HIGH SCORE", (rectXOffset + (scalar * 4.25)), rectYOffset);
     text(highScore, (rectXOffset + (scalar * 5.8)), rectYOffset + scalar);
-
     text(playerPac.score, (rectXOffset - (scalar / 5)), rectYOffset + scalar);
+    pop();
 
-    text("TEST STRING", (rectXOffset - (scalar / 5)), windowHeight - (1.5 * scalar));
+    let thisLifeX = rectXOffset - (scalar / 5);
+    let thisLifeY = windowHeight - (scalar/2); 
 
+    for (let i = 0; i < playerPac.lives; i++)
+    {
+      push();
+      fill(170, 170, 0);
+      circle(thisLifeX, thisLifeY, scalar/1.5);
+      pop();
+
+      push();
+      fill(0);
+      triangle(
+      thisLifeX, thisLifeY,
+      thisLifeX + cos(-30) * scalar/1.5, thisLifeY + sin(-30) * scalar/1.5,
+      thisLifeX  + cos(30) * scalar/1.5, thisLifeY + sin(30) * scalar/1.5);
+      pop();
+
+      thisLifeX += scalar;
+    }
     
   }
   
@@ -399,7 +415,7 @@ class Grid
   update()
   {
     this.render();
-    this.displayScore();
+    this.displayText();
   }
 
 }
