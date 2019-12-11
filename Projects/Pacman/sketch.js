@@ -222,22 +222,40 @@ class Pacman
 
   render()
   {
-    let opening;
-    this.animationTimer = (this.animationTimer + 1) % this.animationMax;
-
-    if (this.animationTimer >= this.animationMax / 2)
+    if (this.isAlive)
     {
-      opening = (this.animationMax - this.animationTimer) * 8 + 1;
+      let opening;
+      this.animationTimer = (this.animationTimer + 1) % this.animationMax;
+
+      if (this.animationTimer >= this.animationMax / 2)
+      {
+        opening = (this.animationMax - this.animationTimer) * 8 + 1;
+      }
+      else
+      {
+        opening = (this.animationTimer) * 8 + 1;
+      }
+        
+      push();
+      fill(255, 255, 0);
+      arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
+      pop();
     }
     else
     {
-      opening = (this.animationTimer) * 8 + 1;
+      this.die();
     }
-      
-    push();
-    fill(255, 255, 0);
-    arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
-    pop();
+  }
+
+
+
+  // Reduce lives for initiate die()
+
+  initiateDeath()
+  {
+    this.lives--;
+    this.isAlive = false;
+    this.animationTimer = 0;
   }
 
 
@@ -246,22 +264,30 @@ class Pacman
 
   die()
   {
-    let opening;
-    this.animationTimer = (this.animationTimer + 1) % this.animationMax;
-    
-    if (this.animationTimer >= this.animationMax / 2)
+    this.animationTimer++;
+
+    if (this.animationTimer < 60)
     {
-      opening = (this.animationMax - this.animationTimer) * 8 + 1;
+      push();
+      fill(255, 255, 0);
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
+    }
+    else if (this.animationTimer < 120)
+    {
+      let opening = (this.animationTimer - 60) * 2.95;
+      push();
+      fill(255, 255, 0);
+      arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
+      pop();
     }
     else
     {
-      opening = (this.animationTimer) * 8 + 1;
+      this.animationTimer = 0;
+      this.lives--;
+      this.isAlive = false;
+      setup();
     }
-      
-    push();
-    fill(255, 255, 0);
-    arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
-    pop();
   }
 
 
@@ -732,8 +758,7 @@ class Ghost
   {
     if (playerPac.isAlive && this.xPos === playerPac.xPos && this.yPos === playerPac.yPos)
     {
-      playerPac.lives -= 1;
-      playerPac.isAlive = false;
+      playerPac.initiateDeath();
     }
   }
 
