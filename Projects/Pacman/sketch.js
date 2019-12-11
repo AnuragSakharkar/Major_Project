@@ -370,16 +370,17 @@ class Grid
       //storeItem(); FOR SCORE
     }
 
+    push();
+    fill(255);
+    textAlign(LEFT, TOP);
+    textSize(scalar/1.75);
     this.totalFrames += 1;
+    
     if (this.totalFrames % 60 <= 30)
     {
       text ("1UP", (rectXOffset - (scalar / 4.5)), rectYOffset);
     }
 
-    push();
-    fill(255);
-    textAlign(LEFT, TOP);
-    textSize(scalar/1.75);
     text("HIGH SCORE", (rectXOffset + (scalar * 4.25)), rectYOffset);
     text(highScore, (rectXOffset + (scalar * 5.8)), rectYOffset + scalar);
     text(playerPac.score, (rectXOffset - (scalar / 5)), rectYOffset + scalar);
