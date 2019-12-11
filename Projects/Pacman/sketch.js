@@ -77,6 +77,7 @@ class Pacman
     this.yPos = 18;
     this.lives = 3;
     this.dotsEaten = 0;
+    this.isAlive = true;
     this.ghostsEaten = 0;
     this.moveCounter = 0;
     this.inverseSpeed = 20;
@@ -221,29 +222,67 @@ class Pacman
 
   render()
   {
-    this.animationTimer = (this.animationTimer + 1) % this.animationMax;
-    let opening;
-    if (this.animationTimer >= this.animationMax / 2)
+    if (this.isAlive)
     {
-      opening = (this.animationMax - this.animationTimer) * 6;
+      this.animationTimer = (this.animationTimer + 1) % this.animationMax;
+      let opening;
+      if (this.animationTimer >= this.animationMax / 2)
+      {
+        opening = (this.animationMax - this.animationTimer) * 6;
+      }
+      else
+      {
+        opening = (this.animationTimer) * 6;
+      }
+
+      push();
+      fill(255, 255, 0);
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
+
+
+      push();
+      fill(0, 0, 0);
+      triangle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset,
+        this.xAnimate * scalar + rectXOffset + cos(this.direction.angle - opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle - opening) * 15,
+        this.xAnimate * scalar + rectXOffset  + cos(this.direction.angle + opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle + opening) * 15);
+      pop();
     }
     else
     {
-      opening = (this.animationTimer) * 6;
+      this.die()
     }
-
-    push();
-    fill(255, 255, 0);
-    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
+  }
 
 
-    push();
-    fill(0, 0, 0);
-    triangle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset,
-      this.xAnimate * scalar + rectXOffset + cos(this.direction.angle - opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle - opening) * 15,
-      this.xAnimate * scalar + rectXOffset  + cos(this.direction.angle + opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle + opening) * 15);
-    pop();
+
+  // Die animation
+
+  die()
+  {
+    this.animationTimer = (this.animationTimer + 1) % this.animationMax;
+      let opening;
+      if (this.animationTimer >= this.animationMax / 2)
+      {
+        opening = (this.animationMax - this.animationTimer) * 6;
+      }
+      else
+      {
+        opening = (this.animationTimer) * 6;
+      }
+
+      push();
+      fill(255, 255, 0);
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
+
+
+      push();
+      fill(0, 0, 0);
+      triangle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset,
+        this.xAnimate * scalar + rectXOffset + cos(this.direction.angle - opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle - opening) * 15,
+        this.xAnimate * scalar + rectXOffset  + cos(this.direction.angle + opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle + opening) * 15);
+      pop();
   }
 
 
@@ -375,7 +414,7 @@ class Grid
     textAlign(LEFT, TOP);
     textSize(scalar/1.75);
     this.totalFrames += 1;
-    
+
     if (this.totalFrames % 60 <= 30)
     {
       text ("1UP", (rectXOffset - (scalar / 4.5)), rectYOffset);
@@ -708,6 +747,19 @@ class Ghost
 
 
 
+  // Reduce Pacman's lives
+
+  kill()
+  {
+    if (playerPac.isAlive && this.xPos === playerPac.xPos && this.yPos === playerPac.yPos)
+    {
+      playerPac.lives -= 1;
+      playerPac.isAlive = false;
+    }
+  }
+
+
+
   // Check and change future direction
 
   changeDirection()
@@ -762,6 +814,7 @@ class Ghost
     this.render();
     this.teleport();
     this.checkCollision();
+    this.kill();
   }
 
 }
@@ -931,7 +984,7 @@ class Clyde extends Ghost
   render()
   {
     push();
-    fill(255, 138, 10);
+    fill(255, 101, 0);
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
     pop();
   }
