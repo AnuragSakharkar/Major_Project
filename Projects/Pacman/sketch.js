@@ -222,36 +222,22 @@ class Pacman
 
   render()
   {
-    if (this.isAlive)
+    let opening;
+    this.animationTimer = (this.animationTimer + 1) % this.animationMax;
+
+    if (this.animationTimer >= this.animationMax / 2)
     {
-      this.animationTimer = (this.animationTimer + 1) % this.animationMax;
-      let opening;
-      if (this.animationTimer >= this.animationMax / 2)
-      {
-        opening = (this.animationMax - this.animationTimer) * 6;
-      }
-      else
-      {
-        opening = (this.animationTimer) * 6;
-      }
-
-      push();
-      fill(255, 255, 0);
-      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-      pop();
-
-
-      push();
-      fill(0, 0, 0);
-      triangle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset,
-        this.xAnimate * scalar + rectXOffset + cos(this.direction.angle - opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle - opening) * 15,
-        this.xAnimate * scalar + rectXOffset  + cos(this.direction.angle + opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle + opening) * 15);
-      pop();
+      opening = (this.animationMax - this.animationTimer) * 8 + 1;
     }
     else
     {
-      this.die()
+      opening = (this.animationTimer) * 8 + 1;
     }
+      
+    push();
+    fill(255, 255, 0);
+    arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
+    pop();
   }
 
 
@@ -260,29 +246,22 @@ class Pacman
 
   die()
   {
+    let opening;
     this.animationTimer = (this.animationTimer + 1) % this.animationMax;
-      let opening;
-      if (this.animationTimer >= this.animationMax / 2)
-      {
-        opening = (this.animationMax - this.animationTimer) * 6;
-      }
-      else
-      {
-        opening = (this.animationTimer) * 6;
-      }
-
-      push();
-      fill(255, 255, 0);
-      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-      pop();
-
-
-      push();
-      fill(0, 0, 0);
-      triangle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset,
-        this.xAnimate * scalar + rectXOffset + cos(this.direction.angle - opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle - opening) * 15,
-        this.xAnimate * scalar + rectXOffset  + cos(this.direction.angle + opening) * 15, this.yAnimate * scalar + rectYOffset + sin(this.direction.angle + opening) * 15);
-      pop();
+    
+    if (this.animationTimer >= this.animationMax / 2)
+    {
+      opening = (this.animationMax - this.animationTimer) * 8 + 1;
+    }
+    else
+    {
+      opening = (this.animationTimer) * 8 + 1;
+    }
+      
+    push();
+    fill(255, 255, 0);
+    arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
+    pop();
   }
 
 
