@@ -90,7 +90,6 @@ class Pacman
     this.size = 25;
     this.animationTimer = 0;
     this.animationMax = 10;
-    this.pointsVal = 0;
   }
 
 
@@ -99,7 +98,7 @@ class Pacman
 
   move()
   {
-    if(this.checkCollision())
+    if (this.isAlive && this.checkCollision())
     {
       this.xAnimate = this.xPos + (this.direction.x * ((this.moveCounter/this.inverseSpeed) * 2));
       this.yAnimate = this.yPos + (this.direction.y * ((this.moveCounter/this.inverseSpeed) * 2));
@@ -286,7 +285,7 @@ class Pacman
       this.animationTimer = 0;
       this.lives--;
       this.isAlive = false;
-      setup();
+      resetEverything();
     }
   }
 
@@ -559,7 +558,7 @@ class Ghost
   constructor()
   {
     this.xPos = 7;
-    this.yPos = 8;
+    this.yPos = 11;
     this.inverseSpeed = 40;
     this.moveCounter = 0;
     this.xAnimate = 0;
@@ -835,8 +834,6 @@ class Blinky extends Ghost
   constructor()
   {
     super();
-    this.xPos = 9;
-    this.yPos = 11;
   }
 
 
@@ -875,8 +872,6 @@ class Pinky extends Ghost
   constructor()
   {
     super();
-    this.xPos = 5;
-    this.yPos = 11;
   }
 
 
@@ -924,8 +919,6 @@ class Inky extends Ghost
   constructor()
   {
     super();
-    this.xPos = 3;
-    this.yPos = 11;
   }
 
 
@@ -977,8 +970,6 @@ class Clyde extends Ghost
   constructor()
   {
     super();
-    this.xPos = 11;
-    this.yPos = 11;
   }
 
 
