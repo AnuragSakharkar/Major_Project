@@ -5,8 +5,6 @@
 
 
 
-// 2D Array/Grid used - lines 246 - 336 and the checkCollision functions of every object that has one.
-
 // Extras for experts/Wow me factor:
 //       - I completed the entire project using Object-Oriented Programming in p5.js, which allows for efficiency and scalability on an entirely new
 //         level when compared to function-oriented programming.
@@ -24,7 +22,7 @@
 
 // Initialize variables and variable names
 
-let gameMode = "PACMAN";
+let gameMode = "MENU";
 
 
 
@@ -85,6 +83,7 @@ class Pacman
     this.yAnimate = 0;
     this.score = 0;
     this.gameState = "alive";
+    this.deathAvailable = false;
     this.direction = Directions.West;
     this.futureDirection = Directions.West;
     this.size = 25;
@@ -453,12 +452,25 @@ class Grid
   
   
   
+  // Play the siren while the game is on
+
+  playSiren()
+  {
+    if(!playSiren.isPlaying())
+    {
+      playSiren.play();
+    }
+  }
+
+
+
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
   update()
   {
     this.render();
     this.displayText();
+    this.playSiren();
   }
 
 }
@@ -520,7 +532,11 @@ class Dots
         {
           this.dotGrid[i].splice(j, 1);
           playerPac.score += 10;
-          //eatTheDot.play();
+          eatTheDot.rate(playerPac.inverseSpeed/8);
+          if (!eatTheDot.isPlaying())
+          {
+            eatTheDot.play();
+          }
         }
         else
         {
@@ -754,7 +770,7 @@ class Ghost
 
   kill()
   {
-    if (playerPac.isAlive && this.xPos === playerPac.xPos && this.yPos === playerPac.yPos)
+    if (playerPac.isAlive && this.xPos === playerPac.xPos && this.yPos === playerPac.yPos && playerPac.deathAvailable)
     {
       playerPac.initiateDeath();
     }
@@ -1090,6 +1106,16 @@ function preload()
 
 
 
+// Mouse clicked because Chrome bad
+
+function mouseClicked()
+{
+  gameMode = "PACMAN";
+}
+
+
+
+
 // Main setup and draw loops
 
 // Setup loop - initializes the canvas, universally converts angles to degrees, and creates objects from the classes defined above.
@@ -1135,6 +1161,7 @@ function draw()
 
   else if (gameMode === "PACMAN")
   {
+    
     runGame();
   }
 }
