@@ -216,8 +216,7 @@ class Pacman
 
 
 
-  // Render function to draw Pacman at the xAnimate and yAnimate positions. His mouth is a black triangle (rotated around the angle value from the
-  // direction) opening and closing between the animationMax and zero values.
+  // Render function to draw Pacman at the xAnimate and yAnimate positions as an arc in the PIE mode for faster rendering than a picture or similar asset
 
   render()
   {
@@ -618,7 +617,7 @@ class Ghost
 
 
 
-  // Draw the ghost (subclass function)
+  // Draw the ghost (subclass function because of differring colors)
 
   render()
   {
@@ -693,7 +692,7 @@ class Ghost
 
 
 
-  // Set the target (subclass function)
+  // Set the target (subclass function because each ghost targets a unique point)
 
   target()
   {
