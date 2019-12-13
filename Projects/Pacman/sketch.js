@@ -1038,46 +1038,6 @@ function runGame()
 
 
 
-// Reset everything except lives and score if Pacman dies.
-
-function resetEverything()
-{
-  playerPac.xPos = 7;
-  playerPac.yPos = 18;
-  playerPac.isAlive = true;
-  playerPac.ghostsEaten = 0;
-  playerPac.moveCounter = 0;
-  playerPac.xAnimate = 0;
-  playerPac.yAnimate = 0;
-  playerPac.gameState = "alive";
-  playerPac.direction = Directions.West;
-  playerPac.futureDirection = Directions.West;
-  playerPac.animationTimer = 0;
-
-  oppBlinky.xPos = 7;
-  oppBlinky.yPos = 11;
-  oppBlinky.moveCounter = 0;
-  oppBlinky.gameState = "chasing";
-
-  oppClyde.xPos = 7;
-  oppClyde.yPos = 11;
-  oppClyde.moveCounter = 0;
-  oppClyde.gameState = "chasing";
-
-  oppInky.xPos = 7;
-  oppInky.yPos = 11;
-  oppInky.moveCounter = 0;
-  oppInky.gameState = "chasing";
-
-  oppPinky.xPos = 7;
-  oppPinky.yPos = 11;
-  oppPinky.moveCounter = 0;
-  oppPinky.gameState = "chasing";
-}
-
-
-
-
 // preload function to initialize and load the sound files
 
 function preload()
