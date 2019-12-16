@@ -10,8 +10,8 @@ function drawMenu()
     push();
     fill(255);
     textSize(scalar/3);
-    text("CLASSIC PACMAN", windowWidth/(scalar/7.35), windowHeight/2);
-    text("CUSTOM PACMAN", windowWidth/(scalar/18.35), windowHeight/2);
+    text("CLASSIC PACMAN", windowWidth - scalar * 30, windowHeight/2);
+    text("CUSTOM PACMAN", windowWidth/(scalar), windowHeight/2);
     pop();
 }
 
