@@ -1,32 +1,3 @@
-// Pacman in Javascript
-// Anurag Sakharkar
-// Computer Science 30 (4)
-// 12 November 2019
-
-
-
-// Extras for experts/Wow me factor:
-//       - I completed the entire project using Object-Oriented Programming in p5.js, which allows for efficiency and scalability on an entirely new
-//         level when compared to function-oriented programming.
-//       - I managed to learn and effectively implement OOP in my code completely independently (learned from Daniel Shiffman - https://shiffman.net/
-//         and other sources on the internet).
-//       - A significant amount of the actual game mechanics is complete, all that is left to implement is pathfinding for the Ghosts, the points
-//         mechanics and maybe a start screen.
-//       - I collaborated with people both online and physically to try to complete aspects of this project in the most elegant way possible.
-//       - I did some extensive research on stuff like the extends method and the original game mechanics and am working to implement those in the
-//         most elegant and efficient way possible.
-//       - I plan on expanding this project significantly (see notes at the end of the code) and will ensure that I continue to work on it alongside
-//         other CS30 projects.
-
-
-
-// Initialize variables and variable names
-
-let gameMode = "MENU";
-
-
-
-
 // Define the directions and their X, Y and angle components
 
 let Directions =
@@ -232,7 +203,7 @@ class Pacman
       {
         opening = (this.animationTimer) * 8 + 1;
       }
-        
+
       push();
       fill(255, 255, 0);
       arc(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size, this.size, opening + this.direction.angle, this.direction.angle - opening,);
@@ -318,7 +289,7 @@ class Grid
     this.cols = 15;
     this.rows = 25;
     this.totalFrames = 0;
-    this.theGrid =  
+    this.theGrid =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -428,7 +399,7 @@ class Grid
     pop();
 
     let thisLifeX = rectXOffset - (scalar / 5);
-    let thisLifeY = windowHeight - (scalar/2); 
+    let thisLifeY = windowHeight - (scalar/2);
 
     for (let i = 0; i < playerPac.lives; i++)
     {
@@ -447,11 +418,11 @@ class Grid
 
       thisLifeX += scalar;
     }
-    
+
   }
-  
-  
-  
+
+
+
   // Play the siren while the game is on
 
   playSiren()
@@ -1022,20 +993,6 @@ class Clyde extends Ghost
 
 
 
-// Change the canvas size and reset all the dependent elements if the window is resized
-
-function windowResized()
-{
-  resizeCanvas(windowWidth, windowHeight);
-
-  scalar = windowHeight/(maze.rows);
-  rectYOffset = scalar/2;
-  rectXOffset =  (windowWidth/2 - (7.5 * scalar));
-}
-
-
-
-
 // Run the game
 
 function runGame()
@@ -1049,6 +1006,7 @@ function runGame()
   oppInky.update();
   oppClyde.update();
 }
+
 
 
 
@@ -1106,77 +1064,13 @@ function preload()
 
 
 
-// Mouse clicked because Chrome bad
+// Change the canvas size and reset all the dependent elements if the window is resized
 
-function mouseClicked()
+function windowResized()
 {
-  gameMode = "PACMAN";
+  resizeCanvas(windowWidth, windowHeight);
+
+  scalar = windowHeight/(maze.rows);
+  rectYOffset = scalar/2;
+  rectXOffset =  (windowWidth/2 - (7.5 * scalar));
 }
-
-
-
-
-// Main setup and draw loops
-
-// Setup loop - initializes the canvas, universally converts angles to degrees, and creates objects from the classes defined above.
-
-function setup()
-{
-  totalFrames = 0;
-  highScore = 100;
-
-  frameRate(60);
-  createCanvas(windowWidth, windowHeight);
-  angleMode(DEGREES);
-  rectMode(CENTER);
-  textFont(emulogic);
-  noStroke();
-
-  maze = new Grid();
-  foods = new Dots();
-
-  playerPac = new Pacman();
-
-  oppBlinky = new Blinky();
-  oppPinky = new Pinky();
-  oppInky = new Inky();
-  oppClyde = new Clyde();
-
-  windowResized();
-}
-
-
-
-// Draw Loop - this is the main loop and will be iterated 60 times per second. Update functions for all the classes are called here.
-
-function draw()
-{
-  background(0);
-
-  if (gameMode === "MENU")
-  {
-    
-  }
-
-
-  else if (gameMode === "PACMAN")
-  {
-    
-    runGame();
-  }
-}
-
-
-
-// Possible future improvements/stuff I will probably add for fun:
-// - Modes for the ghosts (chase, rest, scared) just like is present in the real game.
-// - Get the points rendered and working properly
-// - Further optimizations to allow for future porting to other platforms
-// - Collision and death mechanisms against the ghosts
-// - Death/score counter
-// - Levels where the speed and timing of the Ghosts are changed
-// - Start/end screen
-// - Menu to choose custom colours for Pacman
-
-
-// :)
