@@ -76,13 +76,12 @@ function draw()
 
   if (gameMode === "MENU")
   {
-
+    runMenu();
   }
 
 
   else if (gameMode === "PACMAN")
   {
-
     runGame();
   }
 }

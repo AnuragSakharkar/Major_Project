@@ -221,7 +221,6 @@ class Pacman
 
   initiateDeath()
   {
-    this.lives--;
     this.isAlive = false;
     this.animationTimer = 0;
   }
@@ -993,24 +992,6 @@ class Clyde extends Ghost
 
 
 
-// Run the game
-
-function runGame()
-{
-  playerPac.update();
-  maze.update();
-  foods.update();
-
-  oppBlinky.update();
-  oppPinky.update();
-  oppInky.update();
-  oppClyde.update();
-}
-
-
-
-
-
 // Reset everything except lives and score if Pacman dies.
 
 function resetEverything()
@@ -1073,4 +1054,21 @@ function windowResized()
   scalar = windowHeight/(maze.rows);
   rectYOffset = scalar/2;
   rectXOffset =  (windowWidth/2 - (7.5 * scalar));
+}
+
+
+
+
+// Run the game
+
+function runGame()
+{
+  playerPac.update();
+  maze.update();
+  foods.update();
+
+  oppBlinky.update();
+  oppPinky.update();
+  oppInky.update();
+  oppClyde.update();
 }
