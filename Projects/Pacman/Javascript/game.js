@@ -290,59 +290,59 @@ class Grid
     this.totalFrames = 0;
     this.theGrid =
     [
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-      [true, false,false,false,false,false,false,true, false,false,false,false,false,false,true],
-      [true, false,true, false,true, true, false,true, false,true, true, false,true, false,true],
-      [true, false,true, false,false,false,false,false,false,false,false,false,true, false,true],
-      [true, false,true, false,true, false,true, true, true, false,true, false,true, false,true],
-      [true, false,false,false,true, false,false,true, false,false,true, false,false,false,true],
-      [true, true, true, false,true, true, false,true, false,true, true, false,true, true, true],
-      [true, true, true, false,true, false,false,false,false,false,true, false,true, true, true],
-      [true, true, true, false,true ,false,true, false,true, false,true, false,true, true, true],
-      [false,false,false,false,false,false,true, true, true,false,false,false,false,false,false],
-      [true, true, true, false,true, false,false,false,false,false,true, false,true, true, true],
-      [true, true, true, false,true, false,true, true, true, false,true, false,true, true, true],
-      [true, true, true, false,true, false,true, true, true, false,true, false,true, true, true],
-      [true, false,false,false,false,false,false,true, false,false,false,false,false,false,true],
-      [true, false,true, false,true, true, false,true, false,true, true, false,true, false,true],
-      [true, false,true, false,false,false,false,false,false,false,false,false,true, false,true],
-      [true, false,true, false,true, false,true, true, true, false,true, false,true, false,true],
-      [true, false,false,false,true, false,false,true, false,false,true, false,false,false,true],
-      [true, false,true, true, true ,true, false,true, false,true, true, true, true, false,true],
-      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true],
-      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+      [1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+      [1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1],
+      [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
+      [1, 1, 1, 0, 1 ,0, 1, 0, 1, 0, 1, 0, 1, 1, 1],
+      [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+      [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1],
+      [1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+      [1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+      [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+      [1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+      [1, 0, 1, 1, 1 ,1, 0, 1, 0, 1, 1, 1, 1, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
     this.junctions =
     [
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,false,true, false,true, false,false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,true, false,true, true, false,true, true, false,true, false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,true, true, true, true, true, false,false,false,false,false],
-      [false,false,false,false,false,false,false,true, false,false,false,false,false,false,false],
-      [false,false,false,true, false,true, false,false,false,true, false,true, false,false,false],
-      [false,false,false,false,false,true, false,false,false,true, false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,true ,false,true, true, false,true, true, false,true, false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1 ,0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
   }
 
@@ -457,10 +457,12 @@ class Dots
 
   constructor()
   {
+    this.dotsJson = {};
     this.radius = 5;
     this.totalDots = 0;
     this.dotGrid = [];
     this.layDots();
+    this.jsonStuff
   }
 
 
@@ -469,23 +471,27 @@ class Dots
 
   layDots()
   {
-    for (let i = 0; i < maze.cols; i++)
-    {
-      this.dotGrid.push([]);
-      for (let j = 0; j < maze.rows; j++)
-      {
-        if (!maze.theGrid[j][i] && j > 2 && j < 24)
-        {
-          this.dotGrid[i].push(
-            {
-            x: i,
-            y: j
-            }
-          );
-          this.totalDots += 1;
-        }
-      }
-    }
+    // for (let i = 0; i < maze.cols; i++)
+    // {
+    //   this.dotGrid.push([]);
+    //   for (let j = 0; j < maze.rows; j++)
+    //   {
+    //     if (!maze.theGrid[j][i] && j > 2 && j < 24)
+    //     {
+    //       this.dotGrid[i].push(
+    //         {
+    //         x: i,
+    //         y: j
+    //         }
+    //       );
+    //       this.totalDots += 1;
+    //     }
+    //   }
+    // }
+    // this.dotsJson.grid = this.dotGrid;
+    // saveJSON(this.dotsJson, 'thisGrid');
+    console.log('1 thing')
+    this.jsonStuff = loadJSON('Projects/Pacman/assets/thisGrid.json', doJson)
   }
 
 
@@ -494,13 +500,14 @@ class Dots
 
   render()
   {
-    for (let i = this.dotGrid.length - 1; i >= 0; --i)
+    //loadJSON('Projects/Pacman/assets/thisGrid.json', this.doJson)
+    for (let i = this.jsonStuff.grid.length - 1; i >= 0; --i)
     {
-      for (let j = this.dotGrid[i].length - 1; j >= 0; --j)
+      for (let j = this.jsonStuff.json.length - 1; j >= 0; --j)
       {
-        if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
+        if (playerPac.xPos === this.jsonStuff.json[i][j].x && playerPac.yPos === this.jsonStuff.json[i][j].y)
         {
-          this.dotGrid[i].splice(j, 1);
+          thisGrid.json.splice(j, 1);
           playerPac.score += 10;
           eatTheDot.rate(playerPac.inverseSpeed/8);
           if (!eatTheDot.isPlaying())
@@ -512,7 +519,7 @@ class Dots
         {
           push();
           fill(255);
-          circle((this.dotGrid[i][j].x * scalar) + rectXOffset, (this.dotGrid[i][j].y * scalar) + rectYOffset, this.radius);
+          circle((this.jsonStuff.json.x * scalar) + rectXOffset, (this.jsonStuff.json[i][j].y * scalar) + rectYOffset, this.radius);
           pop();
         }
       }
@@ -531,6 +538,10 @@ class Dots
 }
 
 
+function doJson(data) {
+  console.log('did thing')
+  return data.grid;
+}
 
 
 // Define the Ghost class
