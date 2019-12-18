@@ -23,6 +23,8 @@
 // Initialize variables and variable names
 
 let gameMode = "MENU";
+let box1fill = 75;
+let box2fill = 75;
 
 
 
@@ -60,7 +62,7 @@ function mouseClicked()
 {
   if (gameMode === "MENU")
   {
-    gameMode = "PACMAN";
+    changeGameMode();
   }
   
   else if (gameMode === "CUSTOM")
