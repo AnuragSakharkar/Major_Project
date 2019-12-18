@@ -288,6 +288,8 @@ class Grid
     this.cols = 15;
     this.rows = 25;
     this.totalFrames = 0;
+    this.customGrid = [];
+    this.gridUsed;
     this.theGrid =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -344,6 +346,51 @@ class Grid
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
+  }
+
+
+
+  // Make grid if in custom gameMode
+
+  drawBlank()
+  {
+    if (gameMode === "CUSTOM")
+    {
+      push();
+      strokeWeight(5);
+      stroke(60, 60, 255);
+      fill(0);
+      for (let i = 0; i < this.rows; i++)
+      {
+        for (let j = 0; j < this.cols; j++)
+        {
+          if(this.customGrid[i][j])
+          {
+            square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1, 5);
+          }
+        }
+      }
+      pop();
+    }
+  }
+
+
+
+  // Change color if clicked
+
+  makeMaze()
+  {
+    let xCoord = floor(mouseX / scalar + rectXOffset);
+    let yCoord = floor(mouseY / scalar + rectYOffset);
+
+    if (this.customGrid[yCoord][xCoord] === 1)
+    {
+      this.customGrid[yCoord][xCoord] = false;
+    }
+    else
+    {
+      this.customGrid[yCoord][xCoord] = true;
+    }
   }
 
 
@@ -441,6 +488,7 @@ class Grid
     this.render();
     this.displayText();
     this.playSiren();
+    this.drawBlank();
   }
 
 }
@@ -1027,33 +1075,6 @@ function resetEverything()
   oppPinky.yPos = 11;
   oppPinky.moveCounter = 0;
   oppPinky.gameState = "chasing";
-}
-
-
-
-
-// preload function to initialize and load the sound files
-
-function preload()
-{
-  eatTheDot = loadSound('assets/eatingSound.wav');
-  eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
-  playSiren = loadSound('assets/sirenSound.mp3');
-  emulogic = loadFont('assets/emulogic.ttf');
-}
-
-
-
-
-// Change the canvas size and reset all the dependent elements if the window is resized
-
-function windowResized()
-{
-  resizeCanvas(windowWidth, windowHeight);
-
-  scalar = windowHeight/(maze.rows);
-  rectYOffset = scalar/2;
-  rectXOffset =  (windowWidth/2 - (7.5 * scalar));
 }
 
 

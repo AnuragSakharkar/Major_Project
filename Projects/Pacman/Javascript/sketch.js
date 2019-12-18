@@ -27,11 +27,46 @@ let gameMode = "MENU";
 
 
 
+// preload function to initialize and load the sound files
+
+function preload()
+{
+  eatTheDot = loadSound('assets/eatingSound.wav');
+  eatTheBigDot = loadSound('assets/powerPelletSound.mp3');
+  playSiren = loadSound('assets/sirenSound.mp3');
+  emulogic = loadFont('assets/emulogic.ttf');
+}
+
+
+
+
+// Change the canvas size and reset all the dependent elements if the window is resized
+
+function windowResized()
+{
+  resizeCanvas(windowWidth, windowHeight);
+
+  scalar = windowHeight/(maze.rows);
+  rectYOffset = scalar/2;
+  rectXOffset =  (windowWidth/2 - (7.5 * scalar));
+}
+
+
+
+
 // Mouse clicked because Chrome bad
 
 function mouseClicked()
 {
-  gameMode = "PACMAN";
+  if (gameMode === "MENU")
+  {
+    gameMode = "PACMAN";
+  }
+  
+  else if (gameMode === "CUSTOM")
+  {
+    maze.makeMaze();
+  }
 }
 
 
@@ -85,6 +120,7 @@ function draw()
     runGame();
   }
 }
+
 
 
 
