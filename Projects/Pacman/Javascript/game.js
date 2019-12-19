@@ -397,7 +397,7 @@ class Grid
 
 
 
-  // Find junctions from the map
+  /*// Find junctions from the map
 
   findJunctions()
   {
@@ -441,7 +441,7 @@ class Grid
         }
       }
     }
-  }
+  } */
 
 
 
