@@ -347,7 +347,7 @@ class Grid
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
     this.junctionsNEW = [];
-    this.findJunctions();
+    this.findJunctions(); //GENERATE THE ABOVE ARRAY FROM THE MAP
   }
 
 
