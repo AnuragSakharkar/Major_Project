@@ -347,33 +347,6 @@ class Grid
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ]
     this.junctionsNEW = [];
-    //this.findJunctions(); //GENERATE THE ABOVE ARRAY FROM THE MAP
-  }
-
-
-
-  // Make grid if in custom gameMode
-
-  drawBlank()
-  {
-    if (gameMode === "CUSTOM")
-    {
-      push();
-      strokeWeight(5);
-      stroke(60, 60, 255);
-      fill(0);
-      for (let i = 0; i < this.rows; i++)
-      {
-        for (let j = 0; j < this.cols; j++)
-        {
-          if(this.customGrid[i][j])
-          {
-            square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1, 5);
-          }
-        }
-      }
-      pop();
-    }
   }
 
 
@@ -394,54 +367,6 @@ class Grid
       this.customGrid[yCoord][xCoord] = true;
     }
   }
-
-
-
-  /*// Find junctions from the map
-
-  findJunctions()
-  {
-    for (let i = 0; i < this.rows; i++)
-    {
-      this.junctionsNEW.push([]);
-      for (let j = 0; j < this.cols; j++)
-      {
-        let totalOptions = 0;
-        if (this.direction === Directions.North || this.Direction === Directions.South)
-        {
-          if (this.theGrid[i][j - 1])
-          {
-            totalOptions++;
-          }
-          if (this.theGrid[i][j+1])
-          {
-            totalOptions++
-          }
-        }
-        else
-        {
-          if (this.theGrid[i - 1][j])
-          {
-            totalOptions++;
-          }
-          if (this.theGrid[i + 1][j])
-          {
-            totalOptions++
-          }
-        }
-
-
-        if (totalOptions > 2)
-        {
-          this.junctionsNEW[i][j].push(true);
-        }
-        else
-        {
-          this.junctionsNEW[i][j].push(false);
-        }
-      }
-    }
-  } */
 
 
 
@@ -538,7 +463,6 @@ class Grid
     this.render();
     this.displayText();
     this.playSiren();
-    this.drawBlank();
   }
 
 }
