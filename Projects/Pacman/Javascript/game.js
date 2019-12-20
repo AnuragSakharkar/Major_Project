@@ -57,7 +57,7 @@ class Pacman
     this.deathAvailable = false;
     this.direction = Directions.West;
     this.futureDirection = Directions.West;
-    this.size = 25;
+    this.size = (windowHeight/maze.rows)/1.35;
     this.animationTimer = 0;
     this.animationMax = 10;
   }
@@ -573,7 +573,7 @@ class Ghost
     this.gameState = "chasing";
     this.direction = Directions.North;
     this.futureDirection;
-    this.size = 25;
+    this.size = (windowHeight/maze.rows)/1.35;
     this.frontIsClear = true;
     this.tempvar = 0;
     this.oldDir = Directions.North;
