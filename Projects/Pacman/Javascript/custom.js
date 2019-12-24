@@ -2,13 +2,13 @@ function drawBlank()
 {
     push();
     strokeWeight(5);
-    stroke(60, 60, 255);
-    fill(0);
+    stroke(255);
+    fill(255);
     for (let i = 0; i < maze.rows; i++)
     {
       for (let j = 0; j < maze.cols; j++)
       {
-        if(maze.customGrid[i][j])
+        if(maze.theGrid[i][j])
         {
           square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1, 5);
         }
@@ -17,7 +17,7 @@ function drawBlank()
     pop();
 }
 
- 
+
 
 function findJunctions()
 {
@@ -71,5 +71,5 @@ function findJunctions()
 function customUpdate()
 {
     drawBlank();
-    findJunctions();
+    //findJunctions();
 }

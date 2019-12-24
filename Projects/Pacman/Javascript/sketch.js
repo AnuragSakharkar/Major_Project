@@ -77,6 +77,12 @@ function draw()
   {
     runGame();
   }
+
+
+  else if (gameMode === "MENU")
+  {
+    customUpdate();
+  }
 }
 
 
@@ -121,7 +127,7 @@ function mouseClicked()
 
   else if (gameMode === "CUSTOM")
   {
-    maze.makeMaze();
+    drawBlank();
   }
 }
 
