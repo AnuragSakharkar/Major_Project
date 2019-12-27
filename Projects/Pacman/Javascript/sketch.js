@@ -49,14 +49,14 @@ function setup()
   maze = new Grid();
   foods = new Dots();
 
+  windowResized();
+
   playerPac = new Pacman();
 
   oppBlinky = new Blinky();
   oppPinky = new Pinky();
   oppInky = new Inky();
   oppClyde = new Clyde();
-
-  windowResized();
 }
 
 
