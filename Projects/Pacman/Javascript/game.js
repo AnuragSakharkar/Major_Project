@@ -317,7 +317,7 @@ class Grid
       [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true],
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
-    ]
+    ];
     this.junctions =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -345,27 +345,35 @@ class Grid
       [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
-    ]
-    this.junctionsNEW = [];
-  }
-
-
-
-  // Change color if clicked
-
-  makeMaze()
-  {
-    let xCoord = floor(mouseX / scalar + rectXOffset);
-    let yCoord = floor(mouseY / scalar + rectYOffset);
-
-    if (this.customGrid[yCoord][xCoord] === 1)
-    {
-      this.customGrid[yCoord][xCoord] = false;
-    }
-    else
-    {
-      this.customGrid[yCoord][xCoord] = true;
-    }
+    ];
+    this.customGrid =
+    [
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    ];
   }
 
 

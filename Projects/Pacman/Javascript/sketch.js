@@ -49,14 +49,14 @@ function setup()
   maze = new Grid();
   foods = new Dots();
 
-  windowResized();
-
   playerPac = new Pacman();
 
   oppBlinky = new Blinky();
   oppPinky = new Pinky();
   oppInky = new Inky();
   oppClyde = new Clyde();
+
+  windowResized();
 }
 
 
@@ -79,7 +79,7 @@ function draw()
   }
 
 
-  else if (gameMode === "MENU")
+  else if (gameMode === "CUSTOM")
   {
     customUpdate();
   }
@@ -127,7 +127,7 @@ function mouseClicked()
 
   else if (gameMode === "CUSTOM")
   {
-    drawBlank();
+    changeMaze();
   }
 }
 
