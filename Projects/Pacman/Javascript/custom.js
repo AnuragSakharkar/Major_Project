@@ -4,7 +4,7 @@ function drawCustom()
 {
   push();
   strokeWeight(5);
-  stroke(60, 60, 255);
+  stroke(45, 45, 230);
 
   for (let i = 0; i < maze.rows; i++)
   {
@@ -35,7 +35,7 @@ function changeMaze()
   xToChange = (round(floor(mouseX - rectXOffset)/scalar));
   yToChange = (round(floor(mouseY - rectYOffset)/scalar));
 
-  maze.customGrid[yToChange][xToChange] = !maze.customGrid[yToChange][xToChange];
+  maze.customGrid[yToChange][xToChange] = !maze.customGrid[yToChange][xToChange]
 }
 
 

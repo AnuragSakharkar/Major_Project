@@ -2,39 +2,39 @@
 
 function drawMenu()
 {
-    push();
-    rectMode(CENTER);
-    if (mouseX > (windowWidth/3 - scalar * 2.5) && mouseX < (windowWidth/3 + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
-    {
-        fill(255, 255, 255);
-    }
-    else
-    {
-        fill(75);
-    }
-    rect(windowWidth/3, windowHeight/2, scalar * 5, scalar * 5);
-    pop();
+  push();
+  rectMode(CENTER);
+  if (mouseX > (windowWidth/3 - scalar * 2.5) && mouseX < (windowWidth/3 + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
+  {
+    fill(255, 255, 255);
+  }
+  else
+  {
+    fill(75);
+  }
+  rect(windowWidth/3, windowHeight/2, scalar * 5, scalar * 5);
+  pop();
 
-    push();
-    rectMode(CENTER);
-    if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
-    {
-        fill(255, 255, 255);
-    }
-    else
-    {
-        fill(75);
-    }
-    rect(windowWidth * (2/3), windowHeight/2, scalar * 5, scalar * 5);
-    pop();
+  push();
+  rectMode(CENTER);
+  if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
+  {
+    fill(255, 255, 255);
+  }
+  else
+  {
+    fill(75);
+  }
+  rect(windowWidth * (2/3), windowHeight/2, scalar * 5, scalar * 5);
+  pop();
 
-    push();
-    textAlign(CENTER);
-    fill(0);
-    textSize(scalar/3);
-    text("CLASSIC PACMAN", windowWidth/3, windowHeight/2);
-    text("CUSTOM PACMAN", windowWidth * (2/3), windowHeight/2);
-    pop();
+  push();
+  textAlign(CENTER);
+  fill(0);
+  textSize(scalar/3);
+  text("CLASSIC PACMAN", windowWidth/3, windowHeight/2);
+  text("CUSTOM PACMAN", windowWidth * (2/3), windowHeight/2);
+  pop();
 }
 
 
@@ -43,14 +43,14 @@ function drawMenu()
 
 function changeGameMode()
 {
-    if (mouseX > (windowWidth/3 - scalar * 2.5) && mouseX < (windowWidth/3 + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
-    {
-        gameMode = "PACMAN";
-    }
-    else if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
-    {
-        gameMode = "CUSTOM";
-    }
+  if (mouseX > (windowWidth/3 - scalar * 2.5) && mouseX < (windowWidth/3 + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
+  {
+    gameMode = "PACMAN";
+  }
+  else if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
+  {
+    gameMode = "CUSTOM";
+  }
 }
 
 
@@ -59,5 +59,5 @@ function changeGameMode()
 
 function runMenu()
 {
-    drawMenu();
+  drawMenu();
 }
