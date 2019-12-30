@@ -24,6 +24,11 @@ function drawCustom()
     }
   }
   pop();
+
+  push();
+  fill(255);
+  rect(windowWidth - scalar * 5, windowHeight/2, scalar*3, scalar*3);
+  pop();
 }
 
 
