@@ -181,7 +181,7 @@ class Pacman
   {
     let futureX = this.xPos + this.direction.x;
     let futureY = this.yPos + this.direction.y;
-    return !maze.theGrid[futureY][futureX];
+    return !maze.gridUsed[futureY][futureX];
   }
 
 
@@ -289,7 +289,6 @@ class Grid
     this.rows = 25;
     this.totalFrames = 0;
     this.customGrid = [];
-    this.gridUsed;
     this.theGrid =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -318,6 +317,7 @@ class Grid
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ];
+    this.gridUsed = this.theGrid;
     this.junctions =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -351,27 +351,27 @@ class Grid
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, false,false,false,false,false,false,false,false,false,false,false,false,false,true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ];
   }
@@ -390,7 +390,7 @@ class Grid
     {
       for (let j = 0; j < this.cols; j++)
       {
-        if(this.theGrid[i][j])
+        if(this.gridUsed[i][j])
         {
           square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1, 5);
         }
@@ -504,12 +504,12 @@ class Dots
       this.dotGrid.push([]);
       for (let j = 0; j < maze.rows; j++)
       {
-        if (!maze.theGrid[j][i] && j > 2 && j < 24)
+        if (!maze.gridUsed[j][i] && j > 2 && j < 24)
         {
           this.dotGrid[i].push(
             {
-            x: i,
-            y: j
+              x: i,
+              y: j
             }
           );
           this.totalDots += 1;
@@ -628,7 +628,7 @@ class Ghost
   {
     let futureX = this.xPos + this.direction.x;
     let futureY = this.yPos + this.direction.y;
-    return(maze.theGrid[futureY][futureX]);
+    return(maze.gridUsed[futureY][futureX]);
   }
 
 
@@ -725,7 +725,7 @@ class Ghost
     if(!((this.xPos === 0 || this.xPos === 14) && this.yPos === 9))
     {
 
-      if ((!maze.theGrid[this.yPos + 1][this.xPos]) && (this.direction != Directions.North))
+      if ((!maze.gridUsed[this.yPos + 1][this.xPos]) && (this.direction != Directions.North))
       {
         this.southDist = dist(this.xPos, this.yPos + 1, this.targetX, this.targetY);
       }
@@ -734,7 +734,7 @@ class Ghost
         this.southDist = 5318008;
       }
 
-      if ((!maze.theGrid[this.yPos - 1][this.xPos]) && (this.direction != Directions.South))
+      if ((!maze.gridUsed[this.yPos - 1][this.xPos]) && (this.direction != Directions.South))
       {
         this.northDist = dist(this.xPos, this.yPos - 1, this.targetX, this.targetY);
       }
@@ -743,7 +743,7 @@ class Ghost
         this.northDist = 5318008;
       }
 
-      if ((!maze.theGrid[this.yPos][this.xPos + 1]) && (this.direction != Directions.West))
+      if ((!maze.gridUsed[this.yPos][this.xPos + 1]) && (this.direction != Directions.West))
       {
         this.eastDist = dist(this.xPos + 1, this.yPos, this.targetX, this.targetY);
       }
@@ -752,7 +752,7 @@ class Ghost
         this.eastDist = 5318008;
       }
 
-      if ((!maze.theGrid[this.yPos][this.xPos - 1]) && (this.direction != Directions.East))
+      if ((!maze.gridUsed[this.yPos][this.xPos - 1]) && (this.direction != Directions.East))
       {
         this.westDist = dist(this.xPos - 1, this.yPos, this.targetX, this.targetY);
       }

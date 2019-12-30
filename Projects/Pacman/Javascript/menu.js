@@ -46,7 +46,9 @@ function changeGameMode()
   if (mouseX > (windowWidth/3 - scalar * 2.5) && mouseX < (windowWidth/3 + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
   {
     gameMode = "PACMAN";
+    maze.gridUsed = maze.theGrid;
   }
+  
   else if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
   {
     gameMode = "CUSTOM";

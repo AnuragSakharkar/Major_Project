@@ -65,10 +65,11 @@ function changeMaze()
 
   if (xToChange >= 21 && xToChange <= 24 && yToChange >=10 && yToChange <= 13)
   {
+    maze.gridUsed = maze.customGrid;
     gameMode = "PACMAN";
   }
 
-  else if (yToChange > 2 && yToChange < 24)
+  else if (yToChange > 2 && yToChange < 24 && xToChange != 0 && xToChange != 14)
   {
     maze.customGrid[yToChange][xToChange] = !maze.customGrid[yToChange][xToChange]
   }
