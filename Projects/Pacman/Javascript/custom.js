@@ -30,27 +30,33 @@ function drawCustom()
         }
 
         square((j * scalar) + rectXOffset, (i * scalar) + rectYOffset, scalar + 1, 5);
-
       }
     }
     pop();
 
-    /*push();
+    push();
     strokeWeight(5);
     stroke(45, 45, 230);
-    line(scalar * 11.9, windowHeight - (rectYOffset * 2.1), 26.8 * scalar, windowHeight - (rectYOffset * 2.1))
-    pop();*/
+    line(windowWidth/2 - scalar * 8, windowHeight - (rectYOffset * 2.1), windowWidth/2 + scalar * 7, windowHeight - (rectYOffset * 2.1))
+    pop();
 
     push();
-    fill(255);
-    rect(windowWidth - scalar * 5, windowHeight/2, scalar*3, scalar*3);
+    if (mouseX >= ((windowWidth * 6/7) - 1.5 * scalar) && mouseX <= ((windowWidth * 6/7) + 1.5 * scalar) && mouseY <= ((windowHeight/2) + 1.5 * scalar) && mouseY >= ((windowHeight/2) - 1.5 * scalar))
+    {
+      fill(100);
+    }
+    else
+    {
+      fill(255);
+    }
+    rect(windowWidth - (windowWidth/7), windowHeight/2, scalar*3, scalar*3);
     pop();
 
     push();
     fill(0);
     textAlign(CENTER);
     textSize(scalar/2)
-    text("DONE!", windowWidth - scalar * 5, windowHeight/2)
+    text("DONE!", windowWidth - (windowWidth/7), windowHeight/2)
     pop();
   }
 }
@@ -64,9 +70,7 @@ function changeMaze()
   xToChange = (round(floor(mouseX - rectXOffset)/scalar));
   yToChange = (round(floor(mouseY - rectYOffset)/scalar));
 
-  console.log(xToChange, yToChange);
-
-  if (xToChange >= 21 && xToChange <= 24 && yToChange >=10 && yToChange <= 13)
+  if (mouseX >= ((windowWidth * 6/7) - 1.5 * scalar) && mouseX <= ((windowWidth * 6/7) + 1.5 * scalar) && mouseY <= ((windowHeight/2) + 1.5 * scalar) && mouseY >= ((windowHeight/2) - 1.5 * scalar))
   {
     maze.gridUsed = maze.customGrid;
     gameMode = "PACMAN";
