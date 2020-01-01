@@ -288,7 +288,6 @@ class Grid
     this.cols = 15;
     this.rows = 25;
     this.totalFrames = 0;
-    this.customGrid = [];
     this.theGrid =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -317,7 +316,6 @@ class Grid
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ];
-    this.gridUsed = this.theGrid;
     this.junctions =
     [
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -374,6 +372,7 @@ class Grid
       [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
       [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
     ];
+    this.gridUsed;
   }
 
 
