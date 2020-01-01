@@ -25,7 +25,7 @@
 let gameMode = "MENU";
 let box1fill = 75;
 let box2fill = 75;
-
+let isCustom = false;
 
 
 

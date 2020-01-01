@@ -1,4 +1,4 @@
-// Draw the buttons if in the menu mode
+// Draw the buttons if in the menu mode and change their color if the mouse is over them
 
 function drawMenu()
 {
@@ -39,7 +39,7 @@ function drawMenu()
 
 
 
-// Change the color of the buttons if the mouse is above them
+// Change the gameMode when the mouse is clicked
 
 function changeGameMode()
 {
@@ -47,11 +47,14 @@ function changeGameMode()
   {
     gameMode = "PACMAN";
     maze.gridUsed = maze.theGrid;
+    isCustom = false;
+    foods.layDots();
   }
-  
+
   else if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
   {
     gameMode = "CUSTOM";
+    isCustom = true;
   }
 }
 

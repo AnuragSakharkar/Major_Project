@@ -67,6 +67,7 @@ function changeMaze()
   {
     maze.gridUsed = maze.customGrid;
     gameMode = "PACMAN";
+    foods.layDots();
   }
 
   else if (yToChange > 2 && yToChange < 24 && xToChange != 0 && xToChange != 14)

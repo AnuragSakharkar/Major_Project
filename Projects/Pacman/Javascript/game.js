@@ -490,7 +490,6 @@ class Dots
     this.radius = 5;
     this.totalDots = 0;
     this.dotGrid = [];
-    this.layDots();
   }
 
 
