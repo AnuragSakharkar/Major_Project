@@ -73,6 +73,7 @@ function changeMaze()
   if (mouseX >= ((windowWidth * 6/7) - 1.5 * scalar) && mouseX <= ((windowWidth * 6/7) + 1.5 * scalar) && mouseY <= ((windowHeight/2) + 1.5 * scalar) && mouseY >= ((windowHeight/2) - 1.5 * scalar))
   {
     maze.gridUsed = maze.customGrid;
+    maze.findJunctions();
     gameMode = "PACMAN";
     foods.layDots();
   }

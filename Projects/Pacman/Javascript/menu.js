@@ -47,6 +47,7 @@ function changeGameMode()
   {
     gameMode = "PACMAN";
     maze.gridUsed = maze.theGrid;
+    maze.findJunctions();
     isCustom = false;
     foods.layDots();
   }

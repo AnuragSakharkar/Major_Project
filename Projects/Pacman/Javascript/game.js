@@ -377,6 +377,22 @@ class Grid
 
 
 
+  // Find the junctions in the grid used
+
+  findJunctions()
+  {
+    for (let x = 1; x < this.rows - 1; x++)
+    {
+      for (let y = 1; y < this.cols - 1; y++)
+      {
+        this.junctions[x][y] = !(!this.gridUsed[x][y] && !this.gridUsed[x + 1][y] && !this.gridUsed[x - 1][y] && this.gridUsed[x][y + 1] && this.gridUsed[x][y - 1]) && 
+                               !(!this.gridUsed[x][y] && this.gridUsed[x + 1][y] && this.gridUsed[x - 1][y] && !this.gridUsed[x][y + 1] && !this.gridUsed[x][y - 1]);
+      }
+    }
+  }
+
+
+
   // Render function to calculate and draw the grid
 
   render()
