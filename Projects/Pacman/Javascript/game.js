@@ -52,6 +52,14 @@ class Pacman
     this.inverseSpeed = 20;
     this.xAnimate = 0;
     this.yAnimate = 0;
+    if (getItem("highScore") !== null)
+    {
+      highScore = getItem("highScore");
+    }
+    else
+    {
+      highScore = 0;
+    }
     this.score = 0;
     this.gameState = "alive";
     this.deathAvailable = false;
@@ -318,31 +326,31 @@ class Grid
     ];
     this.junctions =
     [
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,false,true, false,true, false,false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,true, false,true, true, false,true, true, false,true, false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,true, true, true, true, true, false,false,false,false,false],
-      [false,false,false,false,false,false,false,true, false,false,false,false,false,false,false],
-      [false,false,false,true, false,true, false,false,false,true, false,true, false,false,false],
-      [false,false,false,false,false,true, false,false,false,true, false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,true ,false,true, true, false,true, true, false,true, false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,true, false,true, true, false,true, true, false,true, false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,true, false,false,false,false,true, false,true, false,false,false,false,true, false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ],
+      [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true ]
     ];
     this.customGrid =
     [
@@ -423,7 +431,7 @@ class Grid
     if ((playerPac.score) >= highScore)
     {
       highScore = playerPac.score;
-      //storeItem(); FOR SCORE
+      storeItem("highScore", highScore);
     }
 
     push();

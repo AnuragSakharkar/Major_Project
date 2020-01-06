@@ -2,7 +2,7 @@
 
 function drawCustom()
 {
-  if(gameMode === "CUSTOM")
+  if (gameMode === "CUSTOM")
   {
     push();
     strokeWeight(5);
