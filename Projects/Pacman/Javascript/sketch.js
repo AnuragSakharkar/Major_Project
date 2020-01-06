@@ -23,7 +23,6 @@
 // Initialize variables and variable names
 
 let gameMode = "MENU";
-let customMode = "maze"
 let box1fill = 75;
 let box2fill = 75;
 let isCustom = false;

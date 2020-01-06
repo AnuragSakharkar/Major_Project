@@ -2,6 +2,7 @@
 
 function drawCustom()
 {
+  if(gameMode === "CUSTOM")
   {
     push();
     strokeWeight(5);
@@ -19,7 +20,7 @@ function drawCustom()
           stroke(45, 45, 230);
         }
 
-        if (maze.customGrid[i][j] && customMode === "maze")
+        if (maze.customGrid[i][j])
         {
           fill(60, 60, 255)
         }
@@ -38,15 +39,15 @@ function drawCustom()
     stroke(45, 45, 230);
     line(windowWidth/2 - scalar * 8, windowHeight - (rectYOffset * 2.1), windowWidth/2 + scalar * 7, windowHeight - (rectYOffset * 2.1))
     pop();
-    
+
     push();
     if (mouseX >= ((windowWidth * 6/7) - 1.5 * scalar) && mouseX <= ((windowWidth * 6/7) + 1.5 * scalar) && mouseY <= ((windowHeight/2) + 1.5 * scalar) && mouseY >= ((windowHeight/2) - 1.5 * scalar))
     {
-      fill(204, 204, 0);
+      fill(100);
     }
     else
     {
-      fill(255, 255, 0);
+      fill(255);
     }
     rect(windowWidth - (windowWidth/7), windowHeight/2, scalar*3, scalar*3);
     pop();
@@ -72,19 +73,13 @@ function changeMaze()
   if (mouseX >= ((windowWidth * 6/7) - 1.5 * scalar) && mouseX <= ((windowWidth * 6/7) + 1.5 * scalar) && mouseY <= ((windowHeight/2) + 1.5 * scalar) && mouseY >= ((windowHeight/2) - 1.5 * scalar))
   {
     maze.gridUsed = maze.customGrid;
-    customMode = "junctions"
-    //gameMode = "PACMAN";
+    gameMode = "PACMAN";
     foods.layDots();
   }
 
-  else if (yToChange > 3 && yToChange < 23 && xToChange != 0 && xToChange != 14 && customMode === "maze")
+  else if (yToChange > 3 && yToChange < 23 && xToChange != 0 && xToChange != 14)
   {
     maze.customGrid[yToChange][xToChange] = !maze.customGrid[yToChange][xToChange]
-  }
-
-  else if (yToChange > 3 && yToChange < 23 && xToChange != 0 && xToChange != 14 && customMode === "junctions")
-  {
-    maze.customJunctions[yToChange][xToChange] = !maze.customJunctions[yToChange][xToChange]
   }
 
 }
