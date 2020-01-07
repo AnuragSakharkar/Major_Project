@@ -265,7 +265,7 @@ class Pacman
       if (this.lives === 0)
       {
         foods.layDots();
-        this.lives = 3;
+        this.lives = 3; 
       }
     }
   }
@@ -492,6 +492,7 @@ class Dots
             oppInky.inverseSpeed -= 1;
             oppClyde.inverseSpeed -= 1;
             this.layDots();
+            playerPac.lives = 3;
           }
           
           eatTheDot.rate(playerPac.inverseSpeed/8);
