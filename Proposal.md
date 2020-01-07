@@ -17,7 +17,7 @@ For my major project, I'm planning to build online/app verisons of Pacman and Lu
   - Looks better than just "good"
   - Randomizing maps
   - Online multiplayer?
-  - Map building functions for both games
+  - Map building function
   - Also build a version with electron so it's a (downloadable) desktop application as well as a website app 
   - "Cheat mode" where you automatically get all the hax
   - Online high scores to sync b/w different computers
