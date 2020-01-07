@@ -129,6 +129,7 @@ function mouseClicked()
   {
     changeMaze();
   }
+  console.log(playerPac.xPos, playerPac.yPos)
 }
 
 

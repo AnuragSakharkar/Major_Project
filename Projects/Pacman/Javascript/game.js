@@ -436,6 +436,7 @@ class Dots
   {
     this.radius = 5;
     this.totalDots = 0;
+    this.startMillis = 0;
     this.dotGrid = [];
   }
 
@@ -476,6 +477,15 @@ class Dots
       {
         if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
         {
+          if ((playerPac.xPos === 1 || playerPac.xPos === 13) && (playerPac.yPos === 6 || playerPac.yPos === 18))
+          {
+            oppBlinky.gameState = "scared"
+            oppPinky.gameState = "scared"
+            oppInky.gameState = "scared"
+            oppClyde.gameState = "scared"
+            this.startMillis = millis();
+          }
+
           this.dotGrid[i].splice(j, 1);
           if (this.dotGrid[i].length === 0)
           {
@@ -514,11 +524,27 @@ class Dots
 
 
 
+  resetGhosts()
+  {
+    if (oppBlinky.gameState === "scared" && (millis() - this.startMillis >= 5000))
+    {
+      oppBlinky.gameState = "chasing"
+      this.startMillis = 0;
+    }
+  }
+
+
+  
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
   update()
   {
     this.render();
+    if(oppBlinky.gameState === "scared")
+    {
+      console.log(millis() - this.startMillis);
+    }
+    //this.resetGhosts();
   }
 
 }
@@ -821,7 +847,14 @@ class Blinky extends Ghost
   render()
   {
     push();
-    fill(255, 0, 0);
+    if (this.gameState === "scared")
+    {
+      fill(15, 15, 255)
+    }
+    else
+    {
+      fill(255, 0, 0);
+    }
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
     pop();
   }
@@ -859,7 +892,14 @@ class Pinky extends Ghost
   render()
   {
     push();
-    fill(255, 0, 255);
+    if (this.gameState === "scared")
+    {
+      fill(15, 15, 255)
+    }
+    else
+    {
+      fill(255, 0, 255);
+    }
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
     pop();
   }
@@ -906,7 +946,14 @@ class Inky extends Ghost
   render()
   {
     push();
-    fill(0, 255, 255);
+    if (this.gameState === "scared")
+    {
+      fill(15, 15, 255)
+    }
+    else
+    {
+      fill(0, 255, 255);
+    }
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
     pop();
   }
@@ -957,7 +1004,14 @@ class Clyde extends Ghost
   render()
   {
     push();
-    fill(255, 101, 0);
+    if (this.gameState === "scared")
+    {
+      fill(15, 15, 255)
+    }
+    else
+    {
+      fill(255, 101, 0);
+    }
     circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
     pop();
   }
