@@ -262,6 +262,11 @@ class Pacman
       this.lives--;
       this.isAlive = false;
       resetEverything();
+      if (this.lives === 0)
+      {
+        foods.layDots();
+        this.lives = 3;
+      }
     }
   }
 
@@ -472,7 +477,23 @@ class Dots
         if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
         {
           this.dotGrid[i].splice(j, 1);
+          if (this.dotGrid[i].length === 0)
+          {
+            this.dotGrid.splice(i, 1)
+          }
+
           playerPac.score += 10;
+
+          if (this.dotGrid.length === 0)
+          {
+            resetEverything();
+            oppBlinky.inverseSpeed -= 1;
+            oppPinky.inverseSpeed -= 1;
+            oppInky.inverseSpeed -= 1;
+            oppClyde.inverseSpeed -= 1;
+            this.layDots();
+          }
+          
           eatTheDot.rate(playerPac.inverseSpeed/8);
           if (!eatTheDot.isPlaying())
           {
@@ -972,8 +993,8 @@ function resetEverything()
   playerPac.isAlive = true;
   playerPac.ghostsEaten = 0;
   playerPac.moveCounter = 0;
-  playerPac.xAnimate = 0;
-  playerPac.yAnimate = 0;
+  playerPac.xAnimate = 7;
+  playerPac.yAnimate = 18;
   playerPac.gameState = "alive";
   playerPac.direction = Directions.West;
   playerPac.futureDirection = Directions.West;
