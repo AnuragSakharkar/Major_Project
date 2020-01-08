@@ -523,7 +523,7 @@ class Dots
 
 
 
-  // Change ghost state if power pellet is createCanvas
+  // Change ghost state if power pellet is eaten
 
   givePowerPellet()
   {
