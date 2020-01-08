@@ -61,6 +61,7 @@ class Pacman
       highScore = 0;
     }
     this.score = 0;
+    this.bonusCounter = 0;
     this.gameState = "alive";
     this.deathAvailable = false;
     this.direction = Directions.West;
@@ -235,6 +236,19 @@ class Pacman
 
 
 
+  // Add an extra life in 10k increments
+
+  addLife()
+  {
+    if (this.bonusCounter >= 10000)
+    {
+      playerPac.lives += 1;
+      this.bonusCounter = 0;
+    }
+  }
+
+
+
   // Die animation
 
   die()
@@ -282,6 +296,7 @@ class Pacman
     this.move();
     this.teleport();
     this.checkCollision();
+    this.addLife();
   }
 
 }
@@ -504,6 +519,7 @@ class Dots
           if (this.dotGrid[i][j].radius === 5)
           {
             playerPac.score += 10;
+            playerPac.bonusCounter += 10;
             
             if (oppBlinky.gameState != "scared")
             {
@@ -514,6 +530,7 @@ class Dots
           else
           {
             playerPac.score += 50;
+            playerPac.bonusCounter += 50;
             
             this.givePowerPellet();
             if (!eatTheDot.isPlaying)
