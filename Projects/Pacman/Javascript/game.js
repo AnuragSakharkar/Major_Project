@@ -500,16 +500,36 @@ class Dots
       {
         if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
         {
+
+          if (this.dotGrid[i][j].radius === 5)
+          {
+            playerPac.score += 10;
+            
+            if (oppBlinky.gameState != "scared")
+            {
+              eatTheDot.play();
+            }
+          }
+
+          else
+          {
+            playerPac.score += 50;
+            
+            this.givePowerPellet();
+            if (!eatTheDot.isPlaying)
+            {
+              eatTheBigDot.play();
+            }
+          }
+
           this.dotGrid[i].splice(j, 1);
           if (this.dotGrid[i].length === 0)
           {
             this.dotGrid.splice(i, 1)
           }
 
-          playerPac.score += 10;
-
-          eatTheDot.play();
         }
+
         else
         {
           push();
@@ -527,15 +547,11 @@ class Dots
 
   givePowerPellet()
   {
-    if ((playerPac.xPos === 1 || playerPac.xPos === 13) && (playerPac.yPos === 6 || playerPac.yPos === 18) && this.powerPelletsAvailable)
-    {
-      oppBlinky.gameState = "scared"
-      oppPinky.gameState = "scared"
-      oppInky.gameState = "scared"
-      oppClyde.gameState = "scared"
-      this.startEatableMillis = millis();
-    }
-    this.timeInvincible = millis() - this.startEatableMillis;
+    oppBlinky.gameState = "scared"
+    oppPinky.gameState = "scared"
+    oppInky.gameState = "scared"
+    oppClyde.gameState = "scared"
+    this.startEatableMillis = millis();
   }
 
 
@@ -564,7 +580,7 @@ class Dots
   {
     this.render();
     this.changeLevel();
-    this.givePowerPellet();
+    this.timeInvincible = millis() - this.startEatableMillis;
   }
 
 }
@@ -792,7 +808,7 @@ class Ghost
 
   resetGhosts()
   {
-    if (oppBlinky.gameState === "scared" && (foods.timeInvincible >= 5000))
+    if (oppBlinky.gameState === "scared" && (foods.timeInvincible >= 8000))
     {
       oppBlinky.gameState = "chasing";
       oppPinky.gameState = "chasing";
@@ -883,17 +899,20 @@ class Blinky extends Ghost
 
   render()
   {
-    push();
-    if (this.gameState === "scared")
+    if (this.isAlive)
     {
-      fill(15, 15, 255)
+      push();
+      if (this.gameState === "scared")
+      {
+        fill(15, 15, 255)
+      }
+      else
+      {
+        fill(255, 0, 0);
+      }
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
     }
-    else
-    {
-      fill(255, 0, 0);
-    }
-    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
   }
 
 
@@ -902,8 +921,16 @@ class Blinky extends Ghost
 
   target()
   {
-    this.targetX = playerPac.xPos;
-    this.targetY = playerPac.yPos;
+    if (this.gameState === "chasing")
+    {
+      this.targetX = playerPac.xPos;
+      this.targetY = playerPac.yPos;
+    }
+    else
+    {
+      this.targetX = 15;
+      this.targetY = 0;
+    }
   }
 
 }
@@ -928,17 +955,20 @@ class Pinky extends Ghost
 
   render()
   {
-    push();
-    if (this.gameState === "scared")
+    if (this.isAlive)
     {
-      fill(15, 15, 255)
+      push();
+      if (this.gameState === "scared")
+      {
+        fill(15, 15, 255)
+      }
+      else
+      {
+        fill(255, 0, 255);
+      }
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
     }
-    else
-    {
-      fill(255, 0, 255);
-    }
-    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
   }
 
 
@@ -948,15 +978,23 @@ class Pinky extends Ghost
 
   target()
   {
-    if (playerPac.direction === Directions.North)
+    if (this.gameState === "chasing")
     {
-      this.targetX = playerPac.xPos - 4;
-      this.targetY = playerPac.yPos - 4;
+      if (playerPac.direction === Directions.North)
+      {
+        this.targetX = playerPac.xPos - 4;
+        this.targetY = playerPac.yPos - 4;
+      }
+      else
+      {
+        this.targetX = playerPac.xPos + (4 * playerPac.direction.x);
+        this.targetY = playerPac.yPos + (4 * playerPac.direction.y);
+      }
     }
     else
     {
-      this.targetX = playerPac.xPos + (4 * playerPac.direction.x);
-      this.targetY = playerPac.yPos + (4 * playerPac.direction.y);
+      this.targetX = 0;
+      this.targetY = 0;
     }
   }
 
@@ -982,17 +1020,20 @@ class Inky extends Ghost
 
   render()
   {
-    push();
-    if (this.gameState === "scared")
+    if (this.isAlive)
     {
-      fill(15, 15, 255)
+      push();
+      if (this.gameState === "scared")
+      {
+        fill(15, 15, 255)
+      }
+      else
+      {
+        fill(0, 255, 255);
+      }
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
     }
-    else
-    {
-      fill(0, 255, 255);
-    }
-    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
   }
 
 
@@ -1001,21 +1042,29 @@ class Inky extends Ghost
 
   target()
   {
-    let pointX;
-    let pointY;
-    if (playerPac.direction === Directions.North)
+    if (this.gameState === "chasing")
     {
-      pointX = playerPac.xPos - 2;
-      pointY = playerPac.yPos - 2;
+      let pointX;
+      let pointY;
+      if (playerPac.direction === Directions.North)
+      {
+        pointX = playerPac.xPos - 2;
+        pointY = playerPac.yPos - 2;
+      }
+      else
+      {
+        pointX = playerPac.xPos + (4 * playerPac.direction.x);
+        pointY = playerPac.yPos + (4 * playerPac.direction.y);
+      }
+
+      this.targetX = pointX + (pointX - oppBlinky.xPos);
+      this.targetY = pointY + (pointY - oppBlinky.yPos);
     }
     else
     {
-      pointX = playerPac.xPos + (4 * playerPac.direction.x);
-      pointY = playerPac.yPos + (4 * playerPac.direction.y);
+      this.targetX = 15;
+      this.targetY = 24;
     }
-
-    this.targetX = pointX + (pointX - oppBlinky.xPos);
-    this.targetY = pointY + (pointY - oppBlinky.yPos);
   }
 
 }
@@ -1040,17 +1089,20 @@ class Clyde extends Ghost
 
   render()
   {
-    push();
-    if (this.gameState === "scared")
+    if (this.isAlive)
     {
-      fill(15, 15, 255)
+      push();
+      if (this.gameState === "scared")
+      {
+        fill(15, 15, 255)
+      }
+      else
+      {
+        fill(255, 101, 0);
+      }
+      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+      pop();
     }
-    else
-    {
-      fill(255, 101, 0);
-    }
-    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-    pop();
   }
 
 
@@ -1059,15 +1111,23 @@ class Clyde extends Ghost
 
   target()
   {
-    if (dist(this.xPos, this.yPos, playerPac.xPos, playerPac.yPos) <= 7)
+    if (this.gameState === "chasing")
     {
-      this.targetX = 0;
-      this.targetY = 21;
+      if (dist(this.xPos, this.yPos, playerPac.xPos, playerPac.yPos) <= 7)
+      {
+        this.targetX = 0;
+        this.targetY = 21;
+      }
+      else
+      {
+        this.targetX = playerPac.xPos;
+        this.targetY = playerPac.yPos;
+      }
     }
-    else
+    else 
     {
-      this.targetX = playerPac.xPos;
-      this.targetY = playerPac.yPos;
+      this.targetX = 1;
+      this.targetY = 24;
     }
   }
 
