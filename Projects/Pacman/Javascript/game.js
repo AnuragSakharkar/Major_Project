@@ -434,7 +434,6 @@ class Dots
 
   constructor()
   {
-    this.radius = 5;
     this.totalDots = 0;
     this.startEatableMillis = 0;
     this.timeInvincible = 0;
@@ -463,12 +462,26 @@ class Dots
       {
         if (!maze.gridUsed[j][i] && j > 2 && j < 24)
         {
-          this.dotGrid[i].push(
-            {
-              x: i,
-              y: j
-            }
-          );
+          if (!((i === 1 || i === 13) && (j === 6 || j === 18)))
+          {
+            this.dotGrid[i].push(
+              {
+                x: i,
+                y: j,
+                radius: 5
+              }
+            );
+          }
+          else
+          {
+            this.dotGrid[i].push(
+              {
+                x: i,
+                y: j,
+                radius: 15
+              }
+            );
+          }
           this.totalDots += 1;
         }
       }
@@ -501,7 +514,7 @@ class Dots
         {
           push();
           fill(255);
-          circle((this.dotGrid[i][j].x * scalar) + rectXOffset, (this.dotGrid[i][j].y * scalar) + rectYOffset, this.radius);
+          circle((this.dotGrid[i][j].x * scalar) + rectXOffset, (this.dotGrid[i][j].y * scalar) + rectYOffset, this.dotGrid[i][j].radius);
           pop();
         }
       }
