@@ -265,7 +265,7 @@ class Pacman
       if (this.lives === 0)
       {
         foods.layDots();
-        this.lives = 3; 
+        this.lives = 3;
       }
     }
   }
@@ -317,7 +317,7 @@ class Grid
     {
       for (let y = 1; y < this.cols - 1; y++)
       {
-        this.junctions[x][y] = !(!this.gridUsed[x][y] && !this.gridUsed[x + 1][y] && !this.gridUsed[x - 1][y] && this.gridUsed[x][y + 1] && this.gridUsed[x][y - 1]) && 
+        this.junctions[x][y] = !(!this.gridUsed[x][y] && !this.gridUsed[x + 1][y] && !this.gridUsed[x - 1][y] && this.gridUsed[x][y + 1] && this.gridUsed[x][y - 1]) &&
                                !(!this.gridUsed[x][y] && this.gridUsed[x + 1][y] && this.gridUsed[x - 1][y] && !this.gridUsed[x][y + 1] && !this.gridUsed[x][y - 1]);
       }
     }
@@ -436,8 +436,18 @@ class Dots
   {
     this.radius = 5;
     this.totalDots = 0;
-    this.startMillis = 0;
+    this.startEatableMillis = 0;
+    this.timeInvincible = 0;
+    eatTheDot.rate(playerPac.inverseSpeed/8)
     this.dotGrid = [];
+    if (maze.gridUsed === maze.customGrid)
+    {
+      this.powerPelletsAvailable = false;
+    }
+    else
+    {
+      this.powerPelletsAvailable = true;
+    }
   }
 
 
@@ -477,15 +487,6 @@ class Dots
       {
         if (playerPac.xPos === this.dotGrid[i][j].x && playerPac.yPos === this.dotGrid[i][j].y)
         {
-          if ((playerPac.xPos === 1 || playerPac.xPos === 13) && (playerPac.yPos === 6 || playerPac.yPos === 18))
-          {
-            oppBlinky.gameState = "scared"
-            oppPinky.gameState = "scared"
-            oppInky.gameState = "scared"
-            oppClyde.gameState = "scared"
-            this.startMillis = millis();
-          }
-
           this.dotGrid[i].splice(j, 1);
           if (this.dotGrid[i].length === 0)
           {
@@ -494,22 +495,7 @@ class Dots
 
           playerPac.score += 10;
 
-          if (this.dotGrid.length === 0)
-          {
-            resetEverything();
-            oppBlinky.inverseSpeed -= 1;
-            oppPinky.inverseSpeed -= 1;
-            oppInky.inverseSpeed -= 1;
-            oppClyde.inverseSpeed -= 1;
-            this.layDots();
-            playerPac.lives = 3;
-          }
-          
-          eatTheDot.rate(playerPac.inverseSpeed/8);
-          if (!eatTheDot.isPlaying())
-          {
-            eatTheDot.play();
-          }
+          eatTheDot.play();
         }
         else
         {
@@ -524,27 +510,48 @@ class Dots
 
 
 
-  resetGhosts()
+  // Change ghost state if power pellet is createCanvas
+
+  givePowerPellet()
   {
-    if (oppBlinky.gameState === "scared" && (millis() - this.startMillis >= 5000))
+    if ((playerPac.xPos === 1 || playerPac.xPos === 13) && (playerPac.yPos === 6 || playerPac.yPos === 18) && this.powerPelletsAvailable)
     {
-      oppBlinky.gameState = "chasing"
-      this.startMillis = 0;
+      oppBlinky.gameState = "scared"
+      oppPinky.gameState = "scared"
+      oppInky.gameState = "scared"
+      oppClyde.gameState = "scared"
+      this.startEatableMillis = millis();
+    }
+    this.timeInvincible = millis() - this.startEatableMillis;
+  }
+
+
+
+  // Change Level if the length of the dotGrid is 0 i.e. all dots are eaten
+
+  changeLevel()
+  {
+    if (this.dotGrid.length === 0)
+    {
+      resetEverything();
+      oppBlinky.inverseSpeed -= 1;
+      oppPinky.inverseSpeed -= 1;
+      oppInky.inverseSpeed -= 1;
+      oppClyde.inverseSpeed -= 1;
+      this.layDots();
+      playerPac.lives = 3;
     }
   }
 
 
-  
+
   // Update function to organize this object's functions and neaten and simplify main draw loop code.
 
   update()
   {
     this.render();
-    if(oppBlinky.gameState === "scared")
-    {
-      console.log(millis() - this.startMillis);
-    }
-    //this.resetGhosts();
+    this.changeLevel();
+    this.givePowerPellet();
   }
 
 }
@@ -568,6 +575,7 @@ class Ghost
     this.xAnimate = 0;
     this.yAnimate = 0;
     this.gameState = "chasing";
+    this.isAlive = "true"
     this.direction = Directions.North;
     this.futureDirection;
     this.size = (windowHeight/maze.rows)/1.35;
@@ -767,6 +775,21 @@ class Ghost
 
 
 
+  // Reset the ghost states back to original 5 seconds after Pacman eats a power pellet
+
+  resetGhosts()
+  {
+    if (oppBlinky.gameState === "scared" && (foods.timeInvincible >= 5000))
+    {
+      oppBlinky.gameState = "chasing";
+      oppPinky.gameState = "chasing";
+      oppInky.gameState = "chasing";
+      oppClyde.gameState = "chasing";
+    }
+  }
+
+
+
   // Check and change future direction
 
   changeDirection()
@@ -821,6 +844,7 @@ class Ghost
     this.render();
     this.teleport();
     this.checkCollision();
+    this.resetGhosts();
     this.kill();
   }
 

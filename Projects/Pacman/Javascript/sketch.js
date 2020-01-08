@@ -47,9 +47,10 @@ function setup()
   noStroke();
 
   maze = new Grid();
-  foods = new Dots();
 
   playerPac = new Pacman();
+
+  foods = new Dots();
 
   oppBlinky = new Blinky();
   oppPinky = new Pinky();
@@ -129,7 +130,6 @@ function mouseClicked()
   {
     changeMaze();
   }
-  console.log(playerPac.xPos, playerPac.yPos)
 }
 
 
