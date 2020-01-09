@@ -317,8 +317,8 @@ class Grid
     this.rows = 25;
     this.totalFrames = 0;
     this.theGrid = loadJSON('assets/theGrid.json')
-    this.junctions = loadJSON ('assets/junctions.JSON')
-    this.customGrid = loadJSON ('assets/customGrid.JSON')
+    this.junctions = loadJSON ('assets/junctions.json')
+    this.customGrid = loadJSON ('assets/customGrid.json')
     this.gridUsed;
   }
 
