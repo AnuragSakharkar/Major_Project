@@ -564,10 +564,10 @@ class Dots
 
   givePowerPellet()
   {
-    oppBlinky.gameState = "scared"
-    oppPinky.gameState = "scared"
-    oppInky.gameState = "scared"
-    oppClyde.gameState = "scared"
+    oppBlinky.gameState = "scared";
+    oppPinky.gameState = "scared";
+    oppInky.gameState = "scared";
+    oppClyde.gameState = "scared";
     this.startEatableMillis = millis();
   }
 
@@ -621,7 +621,7 @@ class Ghost
     this.xAnimate = 0;
     this.yAnimate = 0;
     this.gameState = "chasing";
-    this.isAlive = "true"
+    this.currentTime = 0;
     this.direction = Directions.North;
     this.futureDirection;
     this.size = (windowHeight/maze.rows)/1.35;
@@ -681,6 +681,18 @@ class Ghost
   render()
   {
 
+  }
+
+
+
+  // Die if in scared state and Pacman touches the ghost
+
+  die()
+  {
+    if (this.gameState = "scared" && playerPac.xPos === this.xPos && playerPac.yPos === this.yPos)
+    {
+      console.log("KILLED A GHOST")
+    }
   }
 
 
@@ -892,6 +904,7 @@ class Ghost
     this.checkCollision();
     this.resetGhosts();
     this.kill();
+    this.die();
   }
 
 }
@@ -916,20 +929,17 @@ class Blinky extends Ghost
 
   render()
   {
-    if (this.isAlive)
+    push();
+    if (this.gameState === "scared")
     {
-      push();
-      if (this.gameState === "scared")
-      {
-        fill(15, 15, 255)
-      }
-      else
-      {
-        fill(255, 0, 0);
-      }
-      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-      pop();
+      fill(15, 15, 255)
     }
+    else if (this.gameState === "chasing")
+    {
+      fill(255, 0, 0);
+    }
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
   }
 
 
@@ -972,20 +982,17 @@ class Pinky extends Ghost
 
   render()
   {
-    if (this.isAlive)
+    push();
+    if (this.gameState === "scared")
     {
-      push();
-      if (this.gameState === "scared")
-      {
-        fill(15, 15, 255)
-      }
-      else
-      {
-        fill(255, 0, 255);
-      }
-      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-      pop();
+      fill(15, 15, 255)
     }
+    else if (this.gameState === "chasing")
+    {
+      fill(255, 0, 255);
+    }
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
   }
 
 
@@ -1037,20 +1044,17 @@ class Inky extends Ghost
 
   render()
   {
-    if (this.isAlive)
+    push();
+    if (this.gameState === "scared")
     {
-      push();
-      if (this.gameState === "scared")
-      {
-        fill(15, 15, 255)
-      }
-      else
-      {
-        fill(0, 255, 255);
-      }
-      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-      pop();
+      fill(15, 15, 255)
     }
+    else if (this.gameState === "chasing")
+    {
+      fill(0, 255, 255);
+    }
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
   }
 
 
@@ -1106,20 +1110,17 @@ class Clyde extends Ghost
 
   render()
   {
-    if (this.isAlive)
+    push();
+    if (this.gameState === "scared")
     {
-      push();
-      if (this.gameState === "scared")
-      {
-        fill(15, 15, 255)
-      }
-      else
-      {
-        fill(255, 101, 0);
-      }
-      circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
-      pop();
+      fill(15, 15, 255)
     }
+    else if (this.gameState === "chasing")
+    {
+      fill(255, 101, 0);
+    }
+    circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
+    pop();
   }
 
 
