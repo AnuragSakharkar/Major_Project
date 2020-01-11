@@ -419,7 +419,7 @@ class Grid
 
   playSiren()
   {
-    if(!playSiren.isPlaying())
+    if(!playSiren.isPlaying() && !eatTheBigDot.isPlaying())
     {
       playSiren.play();
     }
@@ -534,10 +534,7 @@ class Dots
             playerPac.bonusCounter += 50;
 
             this.givePowerPellet();
-            if (!eatTheDot.isPlaying)
-            {
-              eatTheBigDot.play();
-            }
+            eatTheBigDot.play();
           }
 
           this.dotGrid[i].splice(j, 1);
@@ -841,6 +838,10 @@ class Ghost
       oppPinky.gameState = "chasing";
       oppInky.gameState = "chasing";
       oppClyde.gameState = "chasing";
+      if (playerPac.ghostsEaten === 4)
+      {
+        playerPac.ghostsEaten = 0;
+      }
     }
   }
 
@@ -934,10 +935,6 @@ class Blinky extends Ghost
       {
         fill(15, 15, 255)
       }
-      else if (this.gameState === "dead")
-      {
-        fill(0, 0, 0)
-      }
       else
       {
         fill(255, 0, 0);
@@ -1012,10 +1009,6 @@ class Pinky extends Ghost
       if (this.gameState === "scared")
       {
         fill(15, 15, 255)
-      }
-      else if (this.gameState === "dead")
-      {
-        fill(0, 0, 0)
       }
       else
       {
@@ -1100,10 +1093,6 @@ class Inky extends Ghost
       if (this.gameState === "scared")
       {
         fill(15, 15, 255)
-      }
-      else if (this.gameState === "dead")
-      {
-        fill(0, 0, 0)
       }
       else
       {
@@ -1192,10 +1181,6 @@ class Clyde extends Ghost
       if (this.gameState === "scared")
       {
         fill(15, 15, 255)
-      }
-      else if (this.gameState === "dead")
-      {
-        fill(0, 0, 0)
       }
       else
       {
