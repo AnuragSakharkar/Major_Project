@@ -520,7 +520,7 @@ class Dots
           {
             playerPac.score += 10;
             playerPac.bonusCounter += 10;
-            
+
             if (oppBlinky.gameState != "scared")
             {
               eatTheDot.play();
@@ -531,7 +531,7 @@ class Dots
           {
             playerPac.score += 50;
             playerPac.bonusCounter += 50;
-            
+
             this.givePowerPellet();
             if (!eatTheDot.isPlaying)
             {
@@ -821,6 +821,15 @@ class Ghost
 
 
 
+  // Die if Pacman touches them while they're in the scared mode
+
+  die()
+  {
+
+  }
+
+
+
   // Reset the ghost states back to original 5 seconds after Pacman eats a power pellet
 
   resetGhosts()
@@ -892,6 +901,7 @@ class Ghost
     this.checkCollision();
     this.resetGhosts();
     this.kill();
+    this.die();
   }
 
 }
@@ -929,6 +939,23 @@ class Blinky extends Ghost
       }
       circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
       pop();
+    }
+  }
+
+
+
+  // Die if Pacman touches them while they're in the scared mode
+
+  die()
+  {
+    if (this.gameState === "scared" && playerPac.xPos === this.xPos && playerPac.yPos === this.yPos)
+    {
+      this.xPos = 7;
+      this.yPos = 11;
+      this.moveCounter = 0;
+      this.xAnimate = 0;
+      this.yAnimate = 0;
+      console.log("BLINKY GHOST DEAD!")
     }
   }
 
@@ -985,6 +1012,23 @@ class Pinky extends Ghost
       }
       circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
       pop();
+    }
+  }
+
+
+
+  // Die if Pacman touches them while they're in the scared mode
+
+  die()
+  {
+    if (this.gameState === "scared" && playerPac.xPos === this.xPos && playerPac.yPos === this.yPos)
+    {
+      this.xPos = 7;
+      this.yPos = 11;
+      this.moveCounter = 0;
+      this.xAnimate = 0;
+      this.yAnimate = 0;
+      console.log("PINKY GHOST DEAD!")
     }
   }
 
@@ -1050,6 +1094,23 @@ class Inky extends Ghost
       }
       circle(this.xAnimate * scalar + rectXOffset, this.yAnimate * scalar + rectYOffset, this.size);
       pop();
+    }
+  }
+
+
+
+  // Die if Pacman touches them while they're in the scared mode
+
+  die()
+  {
+    if (this.gameState === "scared" && playerPac.xPos === this.xPos && playerPac.yPos === this.yPos)
+    {
+      this.xPos = 7;
+      this.yPos = 11;
+      this.moveCounter = 0;
+      this.xAnimate = 0;
+      this.yAnimate = 0;
+      console.log("INKY GHOST DEAD!")
     }
   }
 
@@ -1124,6 +1185,23 @@ class Clyde extends Ghost
 
 
 
+  // Die if Pacman touches them while they're in the scared mode
+
+  die()
+  {
+    if (this.gameState === "scared" && playerPac.xPos === this.xPos && playerPac.yPos === this.yPos)
+    {
+      this.xPos = 7;
+      this.yPos = 11;
+      this.moveCounter = 0;
+      this.xAnimate = 0;
+      this.yAnimate = 0;
+      console.log("CLYDE GHOST DEAD!")
+    }
+  }
+
+
+
   // If close to Pacman, target the bottom left corner but if not, target Pacman
 
   target()
@@ -1141,7 +1219,7 @@ class Clyde extends Ghost
         this.targetY = playerPac.yPos;
       }
     }
-    else 
+    else
     {
       this.targetX = 1;
       this.targetY = 24;
