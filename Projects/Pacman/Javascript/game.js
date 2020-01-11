@@ -120,6 +120,7 @@ class Pacman
   }
 
 
+
   // The turn function that uses futureDirection to turn
 
   turn()
@@ -813,7 +814,7 @@ class Ghost
 
   kill()
   {
-    if (playerPac.isAlive && this.xPos === playerPac.xPos && this.yPos === playerPac.yPos && playerPac.deathAvailable)
+    if (playerPac.isAlive && this.xPos === playerPac.xPos && this.yPos === playerPac.yPos && playerPac.deathAvailable && this.gameState === "chasing")
     {
       playerPac.initiateDeath();
     }
@@ -821,7 +822,7 @@ class Ghost
 
 
 
-  // Die if Pacman touches them while they're in the scared mode
+  // Die if Pacman touches them while they're in the scared mode (subclass function because each ghost dies individually)
 
   die()
   {
@@ -830,7 +831,7 @@ class Ghost
 
 
 
-  // Reset the ghost states back to original 5 seconds after Pacman eats a power pellet
+  // Reset the ghost states back to original 5 seconds after Pacman eats a power pellet or back to chasing if 5 seconds have passed since they died.
 
   resetGhosts()
   {
@@ -933,6 +934,10 @@ class Blinky extends Ghost
       {
         fill(15, 15, 255)
       }
+      else if (this.gameState === "dead")
+      {
+        fill(0, 0, 0)
+      }
       else
       {
         fill(255, 0, 0);
@@ -955,7 +960,9 @@ class Blinky extends Ghost
       this.moveCounter = 0;
       this.xAnimate = 0;
       this.yAnimate = 0;
-      console.log("BLINKY GHOST DEAD!")
+      this.gameState = "chasing"
+      playerPac.ghostsEaten += 1;
+      playerPac.score += (playerPac.ghostsEaten * 200)
     }
   }
 
@@ -1006,6 +1013,10 @@ class Pinky extends Ghost
       {
         fill(15, 15, 255)
       }
+      else if (this.gameState === "dead")
+      {
+        fill(0, 0, 0)
+      }
       else
       {
         fill(255, 0, 255);
@@ -1028,7 +1039,9 @@ class Pinky extends Ghost
       this.moveCounter = 0;
       this.xAnimate = 0;
       this.yAnimate = 0;
-      console.log("PINKY GHOST DEAD!")
+      this.gameState = "chasing"
+      playerPac.ghostsEaten += 1;
+      playerPac.score += (playerPac.ghostsEaten * 200)
     }
   }
 
@@ -1088,6 +1101,10 @@ class Inky extends Ghost
       {
         fill(15, 15, 255)
       }
+      else if (this.gameState === "dead")
+      {
+        fill(0, 0, 0)
+      }
       else
       {
         fill(0, 255, 255);
@@ -1110,7 +1127,9 @@ class Inky extends Ghost
       this.moveCounter = 0;
       this.xAnimate = 0;
       this.yAnimate = 0;
-      console.log("INKY GHOST DEAD!")
+      this.gameState = "chasing"
+      playerPac.ghostsEaten += 1;
+      playerPac.score += (playerPac.ghostsEaten * 200)
     }
   }
 
@@ -1174,6 +1193,10 @@ class Clyde extends Ghost
       {
         fill(15, 15, 255)
       }
+      else if (this.gameState === "dead")
+      {
+        fill(0, 0, 0)
+      }
       else
       {
         fill(255, 101, 0);
@@ -1196,7 +1219,9 @@ class Clyde extends Ghost
       this.moveCounter = 0;
       this.xAnimate = 0;
       this.yAnimate = 0;
-      console.log("CLYDE GHOST DEAD!")
+      this.gameState = "chasing"
+      playerPac.ghostsEaten += 1;
+      playerPac.score += (playerPac.ghostsEaten * 200)
     }
   }
 
