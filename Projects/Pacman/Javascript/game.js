@@ -49,7 +49,7 @@ class Pacman
     this.isAlive = true;
     this.ghostsEaten = 0;
     this.moveCounter = 0;
-    this.inverseSpeed = 20;
+    this.inverseSpeed = 25;
     this.xAnimate = 0;
     this.yAnimate = 0;
     if (getItem("highScore") !== null)
@@ -614,7 +614,7 @@ class Ghost
   {
     this.xPos = 7;
     this.yPos = 11;
-    this.inverseSpeed = 40;
+    this.inverseSpeed = 30;
     this.moveCounter = 0;
     this.xAnimate = 0;
     this.yAnimate = 0;
