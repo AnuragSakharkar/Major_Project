@@ -63,7 +63,7 @@ class Pacman
     this.score = 0;
     this.bonusCounter = 0;
     this.gameState = "alive";
-    this.deathAvailable = false;
+    this.deathAvailable = true;
     this.direction = Directions.West;
     this.futureDirection = Directions.West;
     this.size = (windowHeight/maze.rows)/1.35;
