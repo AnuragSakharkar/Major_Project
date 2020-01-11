@@ -832,7 +832,7 @@ class Ghost
 
   resetGhosts()
   {
-    if (oppBlinky.gameState === "scared" && (foods.timeInvincible >= 8000))
+    if ((oppBlinky.gameState === "scared" || oppPinky.gameState === "scared" || oppInky.gameState === "scared" || oppClyde.gameState === "scared") && (foods.timeInvincible >= 8000))
     {
       oppBlinky.gameState = "chasing";
       oppPinky.gameState = "chasing";
