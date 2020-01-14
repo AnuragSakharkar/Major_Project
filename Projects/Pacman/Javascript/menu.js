@@ -7,6 +7,12 @@ function drawMenu()
   if (mouseX > (windowWidth/3 - scalar * 2.5) && mouseX < (windowWidth/3 + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
   {
     fill(255, 255, 255);
+    push();
+    textAlign(CENTER);
+    fill(255);
+    textSize(scalar/3);
+    text("The original Pacman game, what level can you get to?", windowWidth/2, windowHeight * (5/6));
+    pop();
   }
   else
   {
@@ -20,6 +26,12 @@ function drawMenu()
   if (mouseX > (windowWidth * (2/3) - scalar * 2.5) && mouseX < (windowWidth * (2/3) + scalar * 2.5) && mouseY < (windowHeight/2 + scalar * 2.5) && mouseY > (windowHeight/2 - scalar * 2.5))
   {
     fill(255, 255, 255);
+    push();
+    textAlign(CENTER);
+    fill(255);
+    textSize(scalar/3);
+    text("Make your own map, how waccky can you make it?", windowWidth/2, windowHeight * (5/6));
+    pop();
   }
   else
   {
