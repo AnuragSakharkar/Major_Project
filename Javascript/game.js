@@ -419,9 +419,13 @@ class Grid
 
   playSiren()
   {
-    if(!playSiren.isPlaying() && !eatTheBigDot.isPlaying())
+    if (!playSiren.isPlaying() && !eatTheBigDot.isPlaying())
     {
       playSiren.play();
+    }
+    else if ((oppBlinky.gameState === "scared" || oppPinky.gameState === "scared" || oppInky.gameState === "scared" || oppClyde.gameState === "scared") && (!eatTheBigDot.isPlaying()))
+    {
+      eatTheBigDot.play();
     }
   }
 
