@@ -526,7 +526,7 @@ class Dots
             playerPac.score += 10;
             playerPac.bonusCounter += 10;
 
-            if (oppBlinky.gameState != "scared")
+            if (!eatTheBigDot.isPlaying())
             {
               eatTheDot.play();
             }
@@ -538,7 +538,10 @@ class Dots
             playerPac.bonusCounter += 50;
 
             this.givePowerPellet();
-            eatTheBigDot.play();
+            if(!eatTheBigDot.isPlaying())
+            {
+              eatTheBigDot.play();
+            }
           }
 
           this.dotGrid[i].splice(j, 1);
