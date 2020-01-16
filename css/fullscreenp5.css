@@ -1,0 +1,19 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+@font-face {
+    font-family:emulogic;
+    src:url(assets/emulogic.ttf);
+}
+
+p {
+    font-family: emulogic;
+}
+ 
