@@ -1,3 +1,5 @@
+// All the code for the custom choice mode is stored here. This includes the maze and click functions for if in this gamemode.
+
 // Draw a blank maze so the user can make their own maze
 
 function drawCustom()

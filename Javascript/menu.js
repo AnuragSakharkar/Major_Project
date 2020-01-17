@@ -1,3 +1,5 @@
+// All the code for the menu is stored here. This includes the buttons and the click functions for if in the menu mode.
+
 // Draw the buttons if in the menu mode and change their color if the mouse is over them
 
 function drawMenu()

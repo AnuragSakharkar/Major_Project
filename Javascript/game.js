@@ -1,3 +1,5 @@
+// All the code for the game is stored here. This includes object classes and game-related functions.
+
 // Define the directions and their X, Y and angle components
 
 let Directions =

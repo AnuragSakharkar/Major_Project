@@ -1,7 +1,7 @@
 // Pacman in Javascript
 // Anurag Sakharkar
 // Computer Science 30 (4)
-// 12 November 2019
+// 20 January 2020
 
 
 
@@ -10,13 +10,10 @@
 //         level when compared to function-oriented programming.
 //       - I managed to learn and effectively implement OOP in my code completely independently (learned from Daniel Shiffman - https://shiffman.net/
 //         and other sources on the internet).
-//       - A significant amount of the actual game mechanics is complete, all that is left to implement is pathfinding for the Ghosts, the points
 //         mechanics and maybe a start screen.
 //       - I collaborated with people both online and physically to try to complete aspects of this project in the most elegant way possible.
 //       - I did some extensive research on stuff like the extends method and the original game mechanics and am working to implement those in the
 //         most elegant and efficient way possible.
-//       - I plan on expanding this project significantly (see notes at the end of the code) and will ensure that I continue to work on it alongside
-//         other CS30 projects.
 
 
 
