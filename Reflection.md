@@ -10,9 +10,12 @@ I feel like one of my most important takeaways during the course of completing t
 The hardest thing to do was definitely the ghosts’ pathfinding, especially the junction generation to allow them to turn.
 
 ### How was that solved?
-I solved it by rethinking the entire way the pathfinding worked, and restructuring it to something less intuitive but more efficient and integrated, which allowed me to only have to generate the junction map once when the game starts.
+I solved it by rethinking the entire way the pathfinding worked, and restructuring it to something less intuitive but more efficient and integrated, which allowed me to only have to generate the junction map once when the game starts (and the map is chosen).
 
 ### What would you do differently next time?
  - A better/more detailed start screen - find a way to render the start screen in the original game
  - Modifying the audio files so they integrate better, for eg. trim the ends so any loops are continuous.
  - Begin building the application much earlier so I could learn more about electronJS and electron-forge as I did it.
+
+ ### Did you complete all of the need to have elements of your project?
+ - Yes, I feel like I completed all of the need to have elements. The only thing that I missed was the multiple maps feature, which was because that I later found out that the original Pacman game doesn't actually have multiple maps, it just modifies the timing of the Ghosts' behaviour. I also implemented the custom level feature, which I think encapsulates that too.
