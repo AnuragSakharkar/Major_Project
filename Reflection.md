@@ -17,5 +17,5 @@ I solved it by rethinking the entire way the pathfinding worked, and restructuri
  - Modifying the audio files so they integrate better, for eg. trim the ends so any loops are continuous.
  - Begin building the application much earlier so I could learn more about electronJS and electron-forge as I did it.
 
- ### Did you complete all of the need to have elements of your project?
+### Did you complete all of the need to have elements of your project?
  - Yes, I feel like I completed all of the need to have elements. The only thing that I missed was the multiple maps feature, which was because that I later found out that the original Pacman game doesn't actually have multiple maps, it just modifies the timing of the Ghosts' behaviour. I also implemented the custom level feature, which I think encapsulates that too.
